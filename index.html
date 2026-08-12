@@ -500,84 +500,52 @@
             gap: 10px;
         }
 
-        /* Mobile Responsiveness for screens under 768px */
-        @media (max-width: 768px) {
-
-            /* 1. Fix Navbar Wrapping */
-            header,
-            nav {
-                flex-direction: column !important;
-                gap: 12px;
-                padding: 16px !important;
-            }
-
-            .logo,
-            .brand-title {
-                white-space: nowrap;
-                /* Prevents "Tavern Games" from breaking into 2 lines */
-            }
-
-            .nav-links {
-                width: 100%;
-                justify-content: space-around;
-                font-size: 14px;
-            }
-
-            /* 2. Stack Hero Content Vertically */
-            .hero-container,
-            .hero {
-                flex-direction: column !important;
-                /* Stacks left text on top, card below */
-                display: flex !important;
-                padding: 24px 16px !important;
-                align-items: center;
-                text-align: left;
-            }
-
-            /* 3. Give Hero Text Full Width */
-            .hero-text,
-            .hero-left {
-                width: 100% !important;
-                max-width: 100% !important;
-            }
-
-            .hero-text h1 {
-                font-size: 2.2rem;
-                /* Reduces headline size so words fit naturally */
-                line-height: 1.2;
-            }
-
-            /* 4. Center and Scale the Telegram QR Card */
-            .qr-card,
-            .telegram-card {
-                width: 100% !important;
-                max-width: 340px;
-                /* Keeps card clean and readable */
-                margin-top: 32px;
-            }
-        }
 
         @media (max-width: 780px) {
-            .hero {
-                grid-template-columns: 1fr;
-                padding-top: 60px;
-            }
 
-            .card-stage {
-                order: -1;
-            }
-
-            .stock-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .find-grid {
-                grid-template-columns: 1fr;
+            /* Header Navigation */
+            nav.wrap {
+                flex-direction: column;
+                gap: 12px;
             }
 
             nav ul {
                 gap: 16px;
-                font-size: 0.82rem;
+                font-size: 0.85rem;
+            }
+
+            /* Hero Section Stacking */
+            .hero {
+                padding: 40px 0;
+            }
+
+            .hero-content {
+                display: flex;
+                flex-direction: column;
+                gap: 32px;
+            }
+
+            /* Reorders Telegram Card to render ABOVE slogan */
+            .card-stage {
+                order: -1;
+                width: 100%;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+                line-height: 1.25;
+            }
+
+            .cta-row {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            /* Sections */
+            .stock-grid,
+            .find-grid {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -638,8 +606,10 @@
                             <span class="card-cost">01</span>
                         </div>
                         <div class="card-art">
-                            <img src="images/telegram_qr.jpg" alt="telegram QR code"
-                                style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                            <a href="https://t.me/+FCgdAub8pIYyYTY9" target="_blank" rel="noopener">
+                                <img src="images/telegram_qr.jpg" alt="telegram QR code"
+                                    style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                            </a>
                         </div>
                         <div>
                             <div class="card-type">Join our telegram community!</div>
@@ -659,7 +629,7 @@
                 </div>
                 <div class="stock-grid">
                     <div class="stock-card">
-                        <div class="stock-rarity"></div>
+                        <div class="stock-rarity">Top Seller</div>
                         <h3>Pokemon</h3>
                         <p>✨ Find the latest English and Japanese Pokemon releases at our stall! Open packs to pull
                             your TOP CHASE or purchase our competitvely priced singles we carry!</p>
@@ -700,6 +670,17 @@
                         </p>
                         <div class="stock-card-img">
                             <img src="images/Riftbound.jpg" alt="Riftbound">
+                        </div>
+                    </div>
+
+                    <div class="stock-card">
+                        <div class="stock-rarity"></div>
+                        <h3>TCG Accessories</h3>
+                        <p> Deckboxes, sleeves, toploaders, and more! We have a wide range of TCG accessories to protect
+                            your cards and suit your needs.
+                        </p>
+                        <div class="stock-card-img">
+                            <img src="images/tcg-accessories-957775.jpg" alt="tcg accessories">
                         </div>
                     </div>
                 </div>
