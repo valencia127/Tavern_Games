@@ -499,6 +499,63 @@
             gap: 10px;
         }
 
+        /* Mobile Responsiveness for screens under 768px */
+        @media (max-width: 768px) {
+
+            /* 1. Fix Navbar Wrapping */
+            header,
+            nav {
+                flex-direction: column !important;
+                gap: 12px;
+                padding: 16px !important;
+            }
+
+            .logo,
+            .brand-title {
+                white-space: nowrap;
+                /* Prevents "Tavern Games" from breaking into 2 lines */
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: space-around;
+                font-size: 14px;
+            }
+
+            /* 2. Stack Hero Content Vertically */
+            .hero-container,
+            .hero {
+                flex-direction: column !important;
+                /* Stacks left text on top, card below */
+                display: flex !important;
+                padding: 24px 16px !important;
+                align-items: center;
+                text-align: left;
+            }
+
+            /* 3. Give Hero Text Full Width */
+            .hero-text,
+            .hero-left {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+
+            .hero-text h1 {
+                font-size: 2.2rem;
+                /* Reduces headline size so words fit naturally */
+                line-height: 1.2;
+            }
+
+            /* 4. Center and Scale the Telegram QR Card */
+            .qr-card,
+            .telegram-card {
+                width: 100% !important;
+                max-width: 340px;
+                /* Keeps card clean and readable */
+                margin-top: 32px;
+            }
+        }
+
         @media (max-width: 780px) {
             .hero {
                 grid-template-columns: 1fr;
