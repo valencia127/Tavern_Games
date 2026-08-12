@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Tavern Games TCG</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        /* ------------------------------------------------------------------
+     Cooper BT and Lazydog are licensed fonts, not available on Google
+     Fonts or any public CDN. To make them render, add your licensed
+     font files (e.g. .woff2) to your project and uncomment/point these
+     @font-face rules at them. Until then, the fallbacks below (a serif
+     for Cooper BT, a cursive/script for Lazydog) will display instead.
+
+  @font-face {
+    font-family: 'Cooper BT';
+    src: url('./fonts/CooperBT-Regular.woff2') format('woff2');
+    font-weight: 400 700;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Lazydog';
+    src: url('./fonts/Lazydog.woff2') format('woff2');
+    font-display: swap;
+  }
+  ------------------------------------------------------------------- */
+
+        :root {
+            --ink: #12121a;
+            --ink-soft: #1c1c28;
+            --parchment: #ede6d6;
+            --parchment-dim: #cfc7b4;
+            --foil-gold: #f67628;
+            --holo-teal: #ffb37a;
+            --line: rgba(237, 230, 214, 0.14);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--ink);
+            color: var(--parchment);
+            font-family: 'IBM Plex Sans', sans-serif;
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Cooper BT', 'Fraunces', serif;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        .wrap {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 0 28px;
+        }
+
+        /* ---------- NAV ---------- */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(18, 18, 26, 0.85);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--line);
+        }
+
+        nav.wrap {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 18px;
+            padding-bottom: 18px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Cooper BT', 'Fraunces', serif;
+            font-weight: 700;
+            font-size: 1.15rem;
+            letter-spacing: -0.01em;
+        }
+
+        .brand-mark {
+            width: 22px;
+            height: 22px;
+            border: 1.5px solid var(--foil-gold);
+            border-radius: 4px;
+            position: relative;
+            transform: rotate(-8deg);
+        }
+
+        .brand-mark::after {
+            content: "";
+            position: absolute;
+            inset: 4px;
+            border: 1px solid var(--holo-teal);
+            border-radius: 2px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 28px;
+            font-size: 0.92rem;
+            font-weight: 500;
+        }
+
+        nav ul a {
+            text-decoration: none;
+            color: var(--parchment-dim);
+            transition: color 0.2s ease;
+        }
+
+        nav ul a:hover,
+        nav ul a:focus-visible {
+            color: var(--foil-gold);
+        }
+
+        /* ---------- HERO ---------- */
+        /* Scope hero container and keep background isolated */
+        .hero {
+            position: relative;
+            isolation: isolate;
+            padding: 96px 0 80px;
+            overflow: hidden;
+        }
+
+        /* Grid layout applied to inner container instead of <section> */
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 56px;
+            align-items: center;
+        }
+
+        /* Hero Background Carousel */
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+        }
+
+        /* Dark overlay gradient to ensure text readability */
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(18, 18, 26, 0.3) 0%, rgba(18, 18, 26, 0.5) 100%);
+            z-index: 1;
+        }
+
+        .hero-bg .slide {
+            position: absolute;
+            inset: 0;
+            background-size: contain;
+            background-position: center;
+            opacity: 0;
+            animation: bgCarousel 12s infinite;
+        }
+
+        .hero-bg .slide:nth-child(1) {
+            background-image: url('images/store.jpg');
+            animation-delay: 0s;
+        }
+
+        .hero-bg .slide:nth-child(2) {
+            background-image: url('images/overview.jpg');
+            animation-delay: 4s;
+        }
+
+        .hero-bg .slide:nth-child(3) {
+            background-image: url('images/playing.jpg');
+            animation-delay: 8s;
+        }
+
+        @keyframes bgCarousel {
+            0% {
+                opacity: 0;
+                transform: scale(1);
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            33% {
+                opacity: 1;
+            }
+
+            43% {
+                opacity: 0;
+                transform: scale(1.04);
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        /* Ensure all lower sections remain solid opaque dark background */
+        section:not(.hero) {
+            background-color: var(--ink);
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Smooth fade in/out animation */
+        @keyframes bgCarousel {
+            0% {
+                opacity: 0;
+                transform: scale(1);
+            }
+
+            10% {
+                opacity: 0.6;
+            }
+
+            33% {
+                opacity: 0.6;
+            }
+
+            43% {
+                opacity: 0;
+                transform: scale(1.04);
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        /* ---------- SIGNATURE CARD ---------- */
+        .card-stage {
+            perspective: 1200px;
+        }
+
+        .tcg-card {
+            width: 100%;
+            max-width: 320px;
+            margin: 0 auto;
+            aspect-ratio: 5 / 7;
+            border-radius: 18px;
+            background:
+                linear-gradient(155deg, rgba(255, 179, 122, 0.18), transparent 40%),
+                linear-gradient(200deg, rgba(246, 118, 40, 0.22), transparent 55%),
+                var(--ink-soft);
+            border: 1px solid var(--line);
+            position: relative;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+        }
+
+        .tcg-card:hover {
+            transform: rotateY(-8deg) rotateX(4deg) translateY(-6px);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.55), 0 0 40px rgba(255, 179, 122, 0.12);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .card-name {
+            font-family: 'Cooper BT', 'Fraunces', serif;
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+
+        .card-cost {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.8rem;
+            border: 1px solid var(--foil-gold);
+            color: var(--foil-gold);
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .card-art {
+            flex: 1;
+            margin: 14px 0;
+            border-radius: 10px;
+            background:
+                radial-gradient(circle at 30% 20%, rgba(255, 179, 122, 0.35), transparent 55%),
+                radial-gradient(circle at 75% 70%, rgba(246, 118, 40, 0.35), transparent 55%),
+                #0c0c12;
+            border: 1px solid var(--line);
+        }
+
+        .card-type {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--parchment-dim);
+            border-top: 1px solid var(--line);
+            padding-top: 10px;
+        }
+
+        .card-text {
+            font-size: 0.82rem;
+            color: var(--parchment-dim);
+            margin-top: 6px;
+        }
+
+        /* ---------- SECTIONS ---------- */
+        section {
+            padding: 76px 0;
+            border-top: 1px solid var(--line);
+        }
+
+        .section-head {
+            display: flex;
+            align-items: baseline;
+            gap: 14px;
+            margin-bottom: 44px;
+        }
+
+        .section-index {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--foil-gold);
+        }
+
+        .section-head h2 {
+            font-size: clamp(1.6rem, 3vw, 2.1rem);
+        }
+
+        /* What we sell */
+        .stock-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .stock-card {
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 26px 22px;
+            background: var(--ink-soft);
+            transition: border-color 0.2s ease, transform 0.2s ease;
+            justify-content: space-between;
+        }
+
+        .stock-card:hover {
+            border-color: var(--holo-teal);
+            transform: translateY(-3px);
+        }
+
+        .stock-rarity {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.68rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--holo-teal);
+            margin-bottom: 10px;
+        }
+
+        .stock-card h3 {
+            font-size: 1.15rem;
+            margin-bottom: 8px;
+        }
+
+        .stock-card p {
+            color: var(--parchment-dim);
+            font-size: 0.92rem;
+        }
+
+        .stock-card-img {
+            margin-top: 16px;
+            width: 100%;
+            height: 160px;
+            /* Controls image height within the card */
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            background: #0c0c12;
+        }
+
+        .stock-card-img img {
+            width: 100%;
+            height: 100%;
+            /* Use 'cover' to fill frame smoothly, or 'contain' if you don't want any cropping */
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Find us */
+        .find-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .schedule-list {
+            list-style: none;
+        }
+
+        .schedule-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--line);
+            font-size: 0.95rem;
+        }
+
+        .schedule-list li:first-child {
+            border-top: 1px solid var(--line);
+        }
+
+        .schedule-day {
+            font-weight: 600;
+            color: var(--parchment);
+        }
+
+        .schedule-time {
+            font-family: 'IBM Plex Mono', monospace;
+            color: var(--parchment-dim);
+            font-size: 0.85rem;
+        }
+
+        .find-note {
+            color: var(--parchment-dim);
+            font-size: 0.95rem;
+        }
+
+        .find-note strong {
+            color: var(--foil-gold);
+            font-weight: 600;
+        }
+
+        /* Contact */
+        .contact-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .contact-pill {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            padding: 12px 22px;
+            text-decoration: none;
+            font-size: 0.92rem;
+            font-weight: 500;
+            transition: border-color 0.2s ease, color 0.2s ease;
+        }
+
+        .contact-pill:hover {
+            border-color: var(--foil-gold);
+            color: var(--foil-gold);
+        }
+
+        footer {
+            border-top: 1px solid var(--line);
+            padding: 32px 0;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.78rem;
+            color: var(--parchment-dim);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        @media (max-width: 780px) {
+            .hero {
+                grid-template-columns: 1fr;
+                padding-top: 60px;
+            }
+
+            .card-stage {
+                order: -1;
+            }
+
+            .stock-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .find-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                gap: 16px;
+                font-size: 0.82rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition: none !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid var(--holo-teal);
+            outline-offset: 3px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav class="wrap">
+            <div class="brand"><span class="brand-mark"></span> Tavern Games</div>
+            <ul>
+                <li><a href="#stock">What We Sell</a></li>
+                <li><a href="#find">Find Us</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <!-- Rotating Background (Top Half Only) -->
+            <div class="hero-bg">
+                <div class="slide"></div>
+                <div class="slide"></div>
+                <div class="slide"></div>
+            </div>
+
+            <!-- Inner Content Wrapper -->
+            <div class="wrap hero-content">
+                <div>
+                    <div class="eyebrow"></div>
+                    <h1>Singles, sealed product,<br>and a good <em>pull</em> away.</h1>
+                    <p class="lede">Welcome to Tavern Games, your local friendly neighbourhood card store!</p>
+                    <div class="cta-row">
+                        <a href="#find" class="btn btn-primary">See where we're set up</a>
+                        <div></div>
+                        <a href="#contact" class="btn btn-ghost">Get in touch</a>
+                    </div>
+                </div>
+
+                <div class="card-stage">
+                    <div class="tcg-card">
+                        <div class="card-top">
+                            <span class="card-name">Tavern Games</span>
+                            <span class="card-cost">01</span>
+                        </div>
+                        <div class="card-art">
+                            <img src="images/telegram_qr.jpg" alt="telegram QR code"
+                                style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                        </div>
+                        <div>
+                            <div class="card-type">Join our telegram community!</div>
+                            <p class="card-text">Check out our weekly events, limited time promotions, and singles on
+                                sale via our telegram group!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="stock">
+            <div class="wrap">
+                <div class="section-head">
+                    <span class="section-index">01</span>
+                    <h2>Games we carry</h2>
+                </div>
+                <div class="stock-grid">
+                    <div class="stock-card">
+                        <div class="stock-rarity"></div>
+                        <h3>Pokemon</h3>
+                        <p>✨ Find the latest English and Japanese Pokemon releases at our stall! Open packs to pull
+                            your TOP CHASE or purchase our competitvely priced singles we carry!</p>
+                        <div class="stock-card-img">
+                            <img src="images/pokemon-30th.jpg" alt="Pokemon 30th Anniversary">
+                        </div>
+                    </div>
+                    <div class="stock-card">
+                        <div class="stock-rarity"></div>
+                        <h3>Magic: The Gathering</h3>
+                        <p> 🧙🏽‍♂️ From play & collector boosters to commander decks, we have a product suitable for
+                            every
+                            Magic Player! Come down to view our collection of Secret Lair Singles and Commander Staples
+                            for Sale!
+                        </p>
+                        <div class="stock-card-img">
+                            <img src="images/mtg.jpg" alt="Magic The Gathering">
+                        </div>
+                    </div>
+                    <div class="stock-card">
+                        <div class="stock-rarity"></div>
+                        <h3>One Piece</h3>
+                        <p> 🏴‍☠️ The most trending TCG of 2026 has set foot in our store, from the latest Japanese
+                            releases &
+                            elusive treasured
+                            singles stored behind our display case, our store has something for every One Piece
+                            Collector!
+                        </p>
+                        <div class="stock-card-img">
+                            <img src="images/one_piece.jpg" alt="One Piece">
+                        </div>
+                    </div>
+
+                    <div class="stock-card">
+                        <div class="stock-rarity"></div>
+                        <h3>Riftbound</h3>
+                        <p> 👀 Coming Soon...
+                        </p>
+                        <div class="stock-card-img">
+                            <img src="images/Riftbound.jpg" alt="Riftbound">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="find">
+            <div class="wrap">
+                <div class="section-head">
+                    <span class="section-index">02</span>
+                    <h2>Find us</h2>
+                </div>
+                <div class="find-grid">
+                    <ul class="schedule-list">
+                        <li><span class="schedule-day">Our Opening Hours:</span>
+                        </li>
+                        <li><span class="schedule-day">Wednesday</span><span class="schedule-time">14:00 – 20:00</span>
+                        </li>
+                        <li><span class="schedule-day">Friday</span><span class="schedule-time">14:00 – 20:00</span>
+                        </li>
+                        <li><span class="schedule-day">Saturday</span><span class="schedule-time">14:00 – 20:00</span>
+                        </li>
+                        <li><span class="schedule-day">Sunday</span><span class="schedule-time">14:00 – 20:00</span>
+                        </li>
+                    </ul>
+                    <div class="map-embed">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7977.513320298947!2d103.85072950972186!3d1.3217930616615279!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da11def13d02c3%3A0x64e5f73253af6c6e!2sTavern%20Games%20TCG!5e0!3m2!1sen!2ssg!4v1786455795191!5m2!1sen!2ssg"
+                            width="100%" height="320" style="border:0; border-radius: 14px;" allowfullscreen=""
+                            loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+
+                    <p class="find-note">
+                        <a href="https://www.google.com/maps/dir//Tavern+Games+TCG,+238+Balestier+Rd,+%2302-03,+URBAN+HERITAGE,+Singapore+329701"
+                            target="_blank" rel="noopener">
+                            Get directions on Google Maps →
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="wrap">
+                <div class="section-head">
+                    <span class="section-index">03</span>
+                    <h2>Follow our Socials!</h2>
+                </div>
+                <div class="contact-row">
+                    <a class="contact-pill" href="https://www.tiktok.com/@taverngames.tcg">Tik Tok</a>
+                    <a class="contact-pill" href="https://www.instagram.com/taverngames.tcg/">Instagram</a>
+                    <a class="contact-pill" href="https://t.me/+FCgdAub8pIYyYTY9">Telegram</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="wrap">
+        <span>© 2026 Tavern Games TCG</span>
+        <span>Trading card singles, sealed product &amp; supplies</span>
+    </footer>
+
+</body>
+
+</html>
