@@ -11,26 +11,6 @@
         rel="stylesheet">
     <link rel="stylesheet" href="style.css?v=2">
     <style>
-        /* ------------------------------------------------------------------
-     Cooper BT and Lazydog are licensed fonts, not available on Google
-     Fonts or any public CDN. To make them render, add your licensed
-     font files (e.g. .woff2) to your project and uncomment/point these
-     @font-face rules at them. Until then, the fallbacks below (a serif
-     for Cooper BT, a cursive/script for Lazydog) will display instead.
-
-  @font-face {
-    font-family: 'Cooper BT';
-    src: url('./fonts/CooperBT-Regular.woff2') format('woff2');
-    font-weight: 400 700;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'Lazydog';
-    src: url('./fonts/Lazydog.woff2') format('woff2');
-    font-display: swap;
-  }
-  ------------------------------------------------------------------- */
-
         :root {
             --ink: #12121a;
             --ink-soft: #1c1c28;
@@ -75,6 +55,11 @@
             max-width: 1080px;
             margin: 0 auto;
             padding: 0 28px;
+        }
+
+        .banner-header {
+            text-align: center;
+            color: #eebb79;
         }
 
         /* ---------- NAV ---------- */
@@ -142,199 +127,116 @@
         }
 
         /* ---------- HERO ---------- */
-        /* Scope hero container and keep background isolated */
         .hero {
             position: relative;
             isolation: isolate;
-            padding: 96px 0 80px;
+            padding: 72px 0 60px;
             overflow: hidden;
         }
 
-        /* Grid layout applied to inner container instead of <section> */
+        /* 28% text left, 72% carousel right */
         .hero-content {
             display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 56px;
+            grid-template-columns: 0.38fr 0.62fr;
+            gap: 86px;
             align-items: center;
         }
 
-        /* Hero Background Carousel */
-        .hero-bg {
-            position: absolute;
-            inset: 0;
-            z-index: -1;
+        .hero-text-block h1 {
+            font-size: 1.6rem;
+            margin-bottom: 6px;
+            color: var(--parchment);
+            line-height: 1.25;
+
         }
 
-        /* Dark overlay gradient to ensure text readability */
-        .hero-bg::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, rgba(18, 18, 26, 0.3) 0%, rgba(18, 18, 26, 0.5) 100%);
-            z-index: 1;
+        .hero-text-block h2 {
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 14px;
+            color: var(--parchment-dim);
         }
 
-        .hero-bg .slide {
-            position: absolute;
-            inset: 0;
-            background-size: contain;
-            background-position: center;
-            opacity: 0;
-            animation: bgCarousel 12s infinite;
+        .centered-text {
+            text-align: center;
         }
 
-        .hero-bg .slide:nth-child(1) {
-            background-image: url('images/store.jpg');
-            animation-delay: 0s;
+        .cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 14px;
         }
 
-        .hero-bg .slide:nth-child(2) {
-            background-image: url('images/overview.jpg');
-            animation-delay: 4s;
+        .hero-text-block .contact-pill {
+            padding: 8px 14px;
+            font-size: 0.8rem;
         }
 
-        .hero-bg .slide:nth-child(3) {
-            background-image: url('images/playing.jpg');
-            animation-delay: 8s;
-        }
-
-        @keyframes bgCarousel {
-            0% {
-                opacity: 0;
-                transform: scale(1);
-            }
-
-            10% {
-                opacity: 1;
-            }
-
-            33% {
-                opacity: 1;
-            }
-
-            43% {
-                opacity: 0;
-                transform: scale(1.04);
-            }
-
-            100% {
-                opacity: 0;
-            }
-        }
-
-        /* Ensure all lower sections remain solid opaque dark background */
         section:not(.hero) {
             background-color: var(--ink);
             position: relative;
             z-index: 2;
         }
 
-        /* Smooth fade in/out animation */
-        @keyframes bgCarousel {
-            0% {
-                opacity: 0;
-                transform: scale(1);
-            }
-
-            10% {
-                opacity: 0.6;
-            }
-
-            33% {
-                opacity: 0.6;
-            }
-
-            43% {
-                opacity: 0;
-                transform: scale(1.04);
-            }
-
-            100% {
-                opacity: 0;
-            }
-        }
-
-        /* ---------- SIGNATURE CARD ---------- */
-        .card-stage {
-            perspective: 1200px;
-        }
-
-        .tcg-card {
+        .hero-content .carousel-container {
             width: 100%;
-            max-width: 320px;
-            margin: 0 auto;
-            aspect-ratio: 5 / 7;
-            border-radius: 18px;
-            background:
-                linear-gradient(155deg, rgba(255, 179, 122, 0.18), transparent 40%),
-                linear-gradient(200deg, rgba(246, 118, 40, 0.22), transparent 55%),
-                var(--ink-soft);
-            border: 1px solid var(--line);
+            margin: 0;
+        }
+
+        .carousel-container {
             position: relative;
-            padding: 18px;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .carousel-track {
             display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
         }
 
-        .tcg-card:hover {
-            transform: rotateY(-8deg) rotateX(4deg) translateY(-6px);
-            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.55), 0 0 40px rgba(255, 179, 122, 0.12);
+        .carousel-track::-webkit-scrollbar {
+            display: none;
         }
 
-        .card-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-
-        .card-name {
-            font-family: 'Cooper BT', 'Fraunces', serif;
-            font-weight: 700;
-            font-size: 1.05rem;
-        }
-
-        .card-cost {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.8rem;
-            border: 1px solid var(--foil-gold);
-            color: var(--foil-gold);
-            border-radius: 50%;
-            width: 28px;
-            height: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .carousel-track img {
+            width: 100%;
             flex-shrink: 0;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            scroll-snap-align: start;
         }
 
-        .card-art {
-            flex: 1;
-            margin: 14px 0;
-            border-radius: 10px;
-            background:
-                radial-gradient(circle at 30% 20%, rgba(255, 179, 122, 0.35), transparent 55%),
-                radial-gradient(circle at 75% 70%, rgba(246, 118, 40, 0.35), transparent 55%),
-                #0c0c12;
-            border: 1px solid var(--line);
+        /* Navigation Buttons */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            font-size: 1.25rem;
+            padding: 12px 16px;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background 0.2s ease;
         }
 
-        .card-type {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.7rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--parchment-dim);
-            border-top: 1px solid var(--line);
-            padding-top: 10px;
+        .nav-btn:hover {
+            background: rgba(0, 0, 0, 0.8);
         }
 
-        .card-text {
-            font-size: 0.82rem;
-            color: var(--parchment-dim);
-            margin-top: 6px;
+        .prev-btn {
+            left: 12px;
+        }
+
+        .next-btn {
+            right: 12px;
         }
 
         /* ---------- SECTIONS ---------- */
@@ -404,7 +306,6 @@
             margin-top: 16px;
             width: 100%;
             height: 160px;
-            /* Controls image height within the card */
             border-radius: 10px;
             overflow: hidden;
             border: 1px solid var(--line);
@@ -414,7 +315,6 @@
         .stock-card-img img {
             width: 100%;
             height: 100%;
-            /* Use 'cover' to fill frame smoothly, or 'contain' if you don't want any cropping */
             object-fit: cover;
             display: block;
         }
@@ -458,11 +358,6 @@
             font-size: 0.95rem;
         }
 
-        .find-note strong {
-            color: var(--foil-gold);
-            font-weight: 600;
-        }
-
         /* Contact */
         .contact-row {
             display: flex;
@@ -500,10 +395,7 @@
             gap: 10px;
         }
 
-
         @media (max-width: 780px) {
-
-            /* Header Navigation */
             nav.wrap {
                 flex-direction: column;
                 gap: 12px;
@@ -514,7 +406,6 @@
                 font-size: 0.85rem;
             }
 
-            /* Hero Section Stacking */
             .hero {
                 padding: 40px 0;
             }
@@ -522,27 +413,19 @@
             .hero-content {
                 display: flex;
                 flex-direction: column;
-                gap: 32px;
+                gap: 24px;
             }
 
-            /* Reorders Telegram Card to render ABOVE slogan */
-            .card-stage {
-                order: -1;
-                width: 100%;
-            }
-
-            .hero-content h1 {
-                font-size: 2rem;
-                line-height: 1.25;
+            .hero-text-block h1 {
+                font-size: 1.5rem;
             }
 
             .cta-row {
                 display: flex;
                 flex-direction: column;
-                gap: 12px;
+                gap: 8px;
             }
 
-            /* Sections */
             .stock-grid,
             .find-grid {
                 grid-template-columns: 1fr;
@@ -579,50 +462,36 @@
 
     <main>
         <section class="hero">
-            <!-- Rotating Background (Top Half Only) -->
-            <div class="hero-bg">
-                <div class="slide"></div>
-                <div class="slide"></div>
-                <div class="slide"></div>
-            </div>
-
-            <!-- Inner Content Wrapper -->
             <div class="wrap hero-content">
-                <div>
-                    <div class="eyebrow"></div>
-                    <h1>Singles, sealed product,<br>and a good <em>pull</em> away.</h1>
-                    <p class="lede">Welcome to Tavern Games, your local friendly neighbourhood card store!</p>
+                <div class="hero-text-block">
+                    <h1>Welcome to Tavern Games</h1>
+                    <div style="height: 24px;" aria-hidden="true"></div>
+                    <h2>Your friendly neighbourhood TCG shop located in the heart of Balestier</h2>
+
                     <div class="cta-row">
-                        <a href="#find" class="btn btn-primary">See where we're set up</a>
-                        <div></div>
-                        <a href="#contact" class="btn btn-ghost">Get in touch</a>
+                        <a href="#find" class="contact-pill">Find Us</a>
+                        <a href="https://t.me/+FCgdAub8pIYyYTY9" target="_blank" rel="noopener"
+                            class="contact-pill">Join our Telegram Channel</a>
                     </div>
                 </div>
 
-                <div class="card-stage">
-                    <div class="tcg-card">
-                        <div class="card-top">
-                            <span class="card-name">Tavern Games</span>
-                            <span class="card-cost">01</span>
-                        </div>
-                        <div class="card-art">
-                            <a href="https://t.me/+FCgdAub8pIYyYTY9" target="_blank" rel="noopener">
-                                <img src="images/telegram_qr.jpg" alt="telegram QR code"
-                                    style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
-                            </a>
-                        </div>
-                        <div>
-                            <div class="card-type">Join our telegram community!</div>
-                            <p class="card-text">Check out our weekly events, limited time promotions, and singles on
-                                sale via our telegram group!</p>
-                        </div>
+                <div class="carousel-container">
+                    <div class="carousel-track" id="carouselTrack">
+                        <img src="images/store.jpg" alt="Store Front" />
+                        <img src="images/overview.jpg" alt="Store Overview" />
+                        <img src="images/playing.jpg" alt="Playing Area" />
                     </div>
+
+                    <button class="nav-btn prev-btn" onclick="slide(-1)" aria-label="Previous image">&#10094;</button>
+                    <button class="nav-btn next-btn" onclick="slide(1)" aria-label="Next image">&#10095;</button>
                 </div>
             </div>
         </section>
 
         <section id="stock">
             <div class="wrap">
+                <h1 class="banner-header">Singles, sealed product, and a good <em>pull</em> away...</h1>
+                <div style="height: 24px;" aria-hidden="true"></div>
                 <div class="section-head">
                     <span class="section-index">01</span>
                     <h2>Games we carry</h2>
@@ -664,7 +533,7 @@
                     </div>
 
                     <div class="stock-card">
-                        <div class="stock-rarity"></div>
+                        <div class="stock-rarity">Upcoming Release</div>
                         <h3>Riftbound</h3>
                         <p> 👀 Coming Soon...
                         </p>
@@ -681,6 +550,18 @@
                         </p>
                         <div class="stock-card-img">
                             <img src="images/tcg-accessories-957775.jpg" alt="tcg accessories">
+                        </div>
+                    </div>
+
+                    <div class="stock-card">
+                        <div class="stock-rarity"></div>
+                        <h3>Board Games</h3>
+                        <p> 🎲 Explore our extensive collection of board games, from classic favorites to the latest
+                            releases! Whether you're a seasoned player or new to the hobby, we have something for
+                            everyone
+                        </p>
+                        <div class="stock-card-img">
+                            <img src="images/board_games.jpg" alt="Board Games">
                         </div>
                     </div>
                 </div>
@@ -744,6 +625,16 @@
         <span>Trading card singles, sealed product &amp; supplies</span>
     </footer>
 
+    <script>
+        function slide(direction) {
+            const track = document.getElementById('carouselTrack');
+            const slideWidth = track.clientWidth;
+            track.scrollBy({
+                left: direction * slideWidth,
+                behavior: 'smooth'
+            });
+        }
+    </script>
 </body>
 
 </html>
