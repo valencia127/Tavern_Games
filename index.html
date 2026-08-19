@@ -270,12 +270,16 @@
         }
 
         .stock-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-decoration: none;
+            color: inherit;
             border: 1px solid var(--line);
             border-radius: 14px;
             padding: 26px 22px;
             background: var(--ink-soft);
             transition: border-color 0.2s ease, transform 0.2s ease;
-            justify-content: space-between;
         }
 
         .stock-card:hover {
@@ -497,28 +501,32 @@
                     <h2>Games we carry</h2>
                 </div>
                 <div class="stock-grid">
-                    <div class="stock-card">
-                        <div class="stock-rarity">Top Seller</div>
-                        <h3>Pokemon</h3>
-                        <p>✨ Find the latest English and Japanese Pokemon releases at our stall! Open packs to pull
-                            your TOP CHASE or purchase our competitvely priced singles we carry!</p>
+                    <a href="https://shop.taverngames.sg/collections/pokemon-sealed" class="stock-card">
+                        <div>
+                            <div class="stock-rarity">Top Seller</div>
+                            <h3>Pokemon</h3>
+                            <p>✨ Find the latest English and Japanese Pokemon releases at our stall! Open packs to pull
+                                your TOP CHASE or purchase our competitvely priced singles we carry!</p>
+                        </div>
                         <div class="stock-card-img">
                             <img src="images/pokemon-30th.jpg" alt="Pokemon 30th Anniversary">
                         </div>
-                    </div>
-                    <div class="stock-card">
-                        <div class="stock-rarity"></div>
-                        <h3>Magic: The Gathering</h3>
-                        <p> 🧙🏽‍♂️ From play & collector boosters to commander decks, we have a product suitable for
-                            every
-                            Magic Player! Come down to view our collection of Secret Lair Singles and Commander Staples
-                            for Sale!
-                        </p>
+                    </a>
+
+                    <!-- Magic: The Gathering -->
+                    <a href="https://shop.taverngames.sg/collections/magic-the-gathering-sealed" class="stock-card">
+                        <div>
+                            <div class="stock-rarity"></div>
+                            <h3>Magic: The Gathering</h3>
+                            <p> 🧙🏽‍♂️ From play & collector boosters to commander decks, we have a product suitable
+                                for every Magic Player! Come down to view our collection of Secret Lair Singles and
+                                Commander Staples for Sale!</p>
+                        </div>
                         <div class="stock-card-img">
                             <img src="images/mtg.jpg" alt="Magic The Gathering">
                         </div>
-                    </div>
-                    <div class="stock-card">
+                    </a>
+                    <a href="https://shop.taverngames.sg/collections/one-piece-sealed" class="stock-card">
                         <div class="stock-rarity"></div>
                         <h3>One Piece</h3>
                         <p> 🏴‍☠️ The most trending TCG of 2026 has set foot in our store, from the latest Japanese
@@ -530,19 +538,19 @@
                         <div class="stock-card-img">
                             <img src="images/one_piece.jpg" alt="One Piece">
                         </div>
-                    </div>
+                    </a>
 
-                    <div class="stock-card">
-                        <div class="stock-rarity">Upcoming Release</div>
+                    <a href="https://shop.taverngames.sg/collections/riftbound-sealed" class="stock-card">
+                        <div class="stock-rarity">New Arrival</div>
                         <h3>Riftbound</h3>
                         <p> 👀 Coming Soon...
                         </p>
                         <div class="stock-card-img">
                             <img src="images/Riftbound.jpg" alt="Riftbound">
                         </div>
-                    </div>
+                    </a>
 
-                    <div class="stock-card">
+                    <a href="https://shop.taverngames.sg/collections/accessories" class="stock-card">
                         <div class="stock-rarity"></div>
                         <h3>TCG Accessories</h3>
                         <p> Deckboxes, sleeves, toploaders, and more! We have a wide range of TCG accessories to protect
@@ -551,7 +559,7 @@
                         <div class="stock-card-img">
                             <img src="images/tcg-accessories-957775.jpg" alt="tcg accessories">
                         </div>
-                    </div>
+                    </a>
 
                     <div class="stock-card">
                         <div class="stock-rarity"></div>
@@ -613,7 +621,8 @@
                 </div>
                 <div class="contact-row">
                     <a class="contact-pill" href="https://www.tiktok.com/@taverngames.tcg">Tik Tok</a>
-                    <a class="contact-pill" href="https://www.instagram.com/taverngames.tcg/">Instagram</a>
+                    <a class="contact-pill" href="https://www.instagram.com/taverngames.tcg/"
+                        rel="noopener">Instagram</a>
                     <a class="contact-pill" href="https://t.me/+FCgdAub8pIYyYTY9">Telegram</a>
                 </div>
             </div>
