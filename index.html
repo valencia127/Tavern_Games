@@ -212,6 +212,64 @@
             scroll-snap-align: start;
         }
 
+        .carousel-track-tall {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .carousel-track-tall::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* 2. Preserve poster dimensions and prevent text cropping */
+        .carousel-track-tall img {
+            width: 100%;
+            flex-shrink: 0;
+            aspect-ratio: 4 / 5;
+            /* Matches standard vertical poster dimensions */
+            object-fit: contain;
+            /* Shows full poster without cropping text */
+            background: var(--ink-soft);
+            scroll-snap-align: start;
+        }
+
+        #events .carousel-container {
+            max-width: 360px;
+            /* Limits carousel width */
+            margin: 0 auto;
+            /* Centers it within its grid column */
+        }
+
+        #events .carousel-track-tall img {
+            max-height: 450px;
+            /* Caps maximum image height */
+            object-fit: contain;
+            /* Keeps full poster visible */
+        }
+
+        #events .carousel-container {
+            overflow: visible;
+        }
+
+        /* Ensure images maintain rounded corners when container overflow is visible */
+        #events .carousel-track-tall {
+            border-radius: 12px;
+        }
+
+        /* Push buttons outside the left and right edges */
+        #events .prev-btn {
+            left: -24px;
+        }
+
+        #events .next-btn {
+            right: -24px;
+        }
+
+
         /* Navigation Buttons */
         .nav-btn {
             position: absolute;
@@ -457,8 +515,10 @@
         <nav class="wrap">
             <div class="brand"><span class="brand-mark"></span> Tavern Games</div>
             <ul>
+                <li><a href='https://shop.taverngames.sg'>Shop our Products</a></li>
                 <li><a href="#stock">What We Sell</a></li>
                 <li><a href="#find">Find Us</a></li>
+                <li><a href="#events">Events</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
@@ -477,17 +537,20 @@
                         <a href="https://t.me/+FCgdAub8pIYyYTY9" target="_blank" rel="noopener"
                             class="contact-pill">Join our Telegram Channel</a>
                     </div>
+
                 </div>
 
                 <div class="carousel-container">
-                    <div class="carousel-track" id="carouselTrack">
+                    <div class="carousel-track" id="heroCarouselTrack">
                         <img src="images/store.jpg" alt="Store Front" />
                         <img src="images/overview.jpg" alt="Store Overview" />
                         <img src="images/playing.jpg" alt="Playing Area" />
                     </div>
 
-                    <button class="nav-btn prev-btn" onclick="slide(-1)" aria-label="Previous image">&#10094;</button>
-                    <button class="nav-btn next-btn" onclick="slide(1)" aria-label="Next image">&#10095;</button>
+                    <button class="nav-btn prev-btn" onclick="slide(-1, 'heroCarouselTrack')"
+                        aria-label="Previous image">&#10094;</button>
+                    <button class="nav-btn next-btn" onclick="slide(1, 'heroCarouselTrack')"
+                        aria-label="Next image">&#10095;</button>
                 </div>
             </div>
         </section>
@@ -543,12 +606,24 @@
                     <a href="https://shop.taverngames.sg/collections/riftbound-sealed" class="stock-card">
                         <div class="stock-rarity">New Arrival</div>
                         <h3>Riftbound</h3>
-                        <p> 👀 Coming Soon...
+                        <p> ✨ Enter and explore the world of Riftbound, the latest TCG to take the Singapore market by
+                            storm!
                         </p>
                         <div class="stock-card-img">
                             <img src="images/Riftbound.jpg" alt="Riftbound">
                         </div>
                     </a>
+
+                    <div class="stock-card">
+                        <div class="stock-rarity">Coming Soon...</div>
+                        <h3>Disney Lorcana</h3>
+                        <p> 🪄 Unleash the magic with Disney Lorcana! Collect your favorite Disney characters and
+                            embark on an enchanting adventure.
+                        </p>
+                        <div class="stock-card-img">
+                            <img src="images/lorcana.jpg" alt="Disney Lorcana">
+                        </div>
+                    </div>
 
                     <a href="https://shop.taverngames.sg/collections/accessories" class="stock-card">
                         <div class="stock-rarity"></div>
@@ -560,18 +635,6 @@
                             <img src="images/tcg-accessories-957775.jpg" alt="tcg accessories">
                         </div>
                     </a>
-
-                    <div class="stock-card">
-                        <div class="stock-rarity"></div>
-                        <h3>Board Games</h3>
-                        <p> 🎲 Explore our extensive collection of board games, from classic favorites to the latest
-                            releases! Whether you're a seasoned player or new to the hobby, we have something for
-                            everyone
-                        </p>
-                        <div class="stock-card-img">
-                            <img src="images/board_games.jpg" alt="Board Games">
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
@@ -613,10 +676,49 @@
             </div>
         </section>
 
-        <section id="contact">
+        <section id="events">
             <div class="wrap">
                 <div class="section-head">
                     <span class="section-index">03</span>
+                    <h2> Weekly Events!</h2>
+                </div>
+                <div class="find-grid">
+                    <ul class="schedule-list">
+                        <li><span class="schedule-day">Our Weekly Events:</span>
+                        </li>
+                        <li><span class="schedule-day">Friday 7pm</span><span class="schedule-time">One Piece
+                                Casuals</span>
+                        </li>
+                        <li><span class="schedule-day">Saturday 2:30pm</span><span class="schedule-time">Casual
+                                Commander -- Magic: The Gathering</span>
+                        </li>
+                        <li><span class="schedule-day">Sunday 2:30pm</span><span class="schedule-time">Nexus Events --
+                                Riftbound</span>
+                        </li>
+                    </ul>
+
+                    <div class="carousel-container">
+                        <div class="carousel-track-tall" id="eventsCarouselTrack">
+                            <img src="images/nexus.jpg" alt="Store Front" />
+                            <img src="images/casual_commander.jpeg" alt="Store Overview" />
+                        </div>
+
+                        <button class="nav-btn prev-btn" onclick="slide(-1, 'eventsCarouselTrack')"
+                            aria-label="Previous image">&#10094;</button>
+                        <button class="nav-btn next-btn" onclick="slide(1, 'eventsCarouselTrack')"
+                            aria-label="Next image">&#10095;</button>
+                    </div>
+
+
+                </div>
+            </div>
+        </section>
+
+
+        <section id="contact">
+            <div class="wrap">
+                <div class="section-head">
+                    <span class="section-index">04</span>
                     <h2>Follow our Socials!</h2>
                 </div>
                 <div class="contact-row">
@@ -635,8 +737,8 @@
     </footer>
 
     <script>
-        function slide(direction) {
-            const track = document.getElementById('carouselTrack');
+        function slide(direction, trackId) {
+            const track = document.getElementById(trackId);
             const slideWidth = track.clientWidth;
             track.scrollBy({
                 left: direction * slideWidth,
