@@ -434,6 +434,36 @@
             font-size: 0.95rem;
         }
 
+        /* Weekly events list: date on its own line, time + event name below */
+        .event-schedule .event-row {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 4px;
+        }
+
+        .event-date {
+            font-weight: 600;
+            color: var(--parchment);
+        }
+
+        .event-time-name {
+            font-family: 'IBM Plex Mono', monospace;
+            color: var(--parchment-dim);
+            font-size: 0.85rem;
+        }
+
+        .event-time-name a {
+            color: var(--foil-gold);
+        }
+
+        .schedule-heading .schedule-day {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--parchment-dim);
+            font-weight: 500;
+        }
+
         /* Contact */
         .contact-row {
             display: flex;
@@ -599,6 +629,8 @@
                         <a href="#find" class="contact-pill">Find Us</a>
                         <a href="https://t.me/+FCgdAub8pIYyYTY9" target="_blank" rel="noopener"
                             class="contact-pill">Join our Telegram Channel</a>
+                        <a href="https://shop.taverngames.sg/" target="_blank" rel="noopener"
+                            class="contact-pill">Purchase Products</a>
                     </div>
 
                 </div>
@@ -750,28 +782,36 @@
                 <p style="font-family:  'Trebuchet MS', sans-serif; color: #e7891e;">
                     Click the link to sign up for our events!</p> <br>
                 <div class="find-grid">
-                    <ul class="schedule-list">
-                        <li><span class="schedule-day">Our Weekly Events:</span>
+                    <ul class="schedule-list event-schedule">
+                        <li class="schedule-heading"><span class="schedule-day">Our Weekly Events:</span>
                         </li>
-                        <li><span class="schedule-day">2nd September, Wednesday 7pm - 9pm</span><span
-                                class="schedule-time"><a
+                        <li class="event-row">
+                            <span class="event-date">2nd September, Wednesday</span>
+                            <span class="event-time-name"><span class="event-time">7pm – 9pm</span> · <a
                                     href="https://locator.riftbound.uvsgames.com/events/903208">Nexus Night</a></span>
                         </li>
-                        <li><span class="schedule-day">4th September, Friday 7pm - 9pm</span><span
-                                class="schedule-time"><a href="https://tcg.ravensburgerplay.com/events/904084">Lorcana
-                                    Learn to Play</a></span>
+                        <li class="event-row">
+                            <span class="event-date">4th September, Friday</span>
+                            <span class="event-time-name"><span class="event-time">7pm – 9pm</span> · <a
+                                    href="https://tcg.ravensburgerplay.com/events/904084">Lorcana Learn to
+                                    Play</a></span>
                         </li>
-                        <li><span class="schedule-day">5th September, Saturday 3pm - 5pm</span><span
-                                class="schedule-time"><a
+                        <li class="event-row">
+                            <span class="event-date">5th September, Saturday</span>
+                            <span class="event-time-name"><span class="event-time">3pm – 5pm</span> · <a
                                     href="https://locator.riftbound.uvsgames.com/events/894469">Nexus
                                     Afternoon</a></span>
                         </li>
-                        <li><span class="schedule-day">6th September, Sunday 2pm - 4pm</span><span
-                                class="schedule-time"><a href="https://tcg.ravensburgerplay.com/events/904073">Lorcana
-                                    Infinity Constructed</a></span>
+                        <li class="event-row">
+                            <span class="event-date">6th September, Sunday</span>
+                            <span class="event-time-name"><span class="event-time">2pm – 4pm</span> · <a
+                                    href="https://tcg.ravensburgerplay.com/events/904073">Lorcana Infinity
+                                    Constructed</a></span>
                         </li>
-                        <li><span class="schedule-day">6th September, Sunday 5pm - 7pm</span><span
-                                class="schedule-time"> Casual Commander MTG</span>
+                        <li class="event-row">
+                            <span class="event-date">6th September, Sunday</span>
+                            <span class="event-time-name"><span class="event-time">5pm – 7pm</span> · Casual
+                                Commander MTG</span>
                         </li>
                     </ul>
 
