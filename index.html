@@ -91,9 +91,8 @@
             position: sticky;
             top: 0;
             z-index: 50;
-            background: rgba(18, 18, 26, 0.85);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid var(--line);
+            background: #f57627;
+            border-bottom: 1px solid rgba(18, 18, 26, 0.15);
         }
 
         nav.wrap {
@@ -107,28 +106,12 @@
         .brand {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-family: 'Cooper BT', 'Fraunces', serif;
-            font-weight: 700;
-            font-size: 1.15rem;
-            letter-spacing: -0.01em;
         }
 
-        .brand-mark {
-            width: 22px;
-            height: 22px;
-            border: 1.5px solid var(--foil-gold);
-            border-radius: 4px;
-            position: relative;
-            transform: rotate(-8deg);
-        }
-
-        .brand-mark::after {
-            content: "";
-            position: absolute;
-            inset: 4px;
-            border: 1px solid var(--holo-teal);
-            border-radius: 2px;
+        .brand-logo {
+            display: block;
+            height: 52px;
+            width: auto;
         }
 
         nav ul {
@@ -141,13 +124,32 @@
 
         nav ul a {
             text-decoration: none;
-            color: var(--parchment-dim);
+            color: var(--ink);
             transition: color 0.2s ease;
         }
 
         nav ul a:hover,
         nav ul a:focus-visible {
-            color: var(--foil-gold);
+            color: #fff;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.6rem;
+            line-height: 1;
+            color: var(--ink);
+            cursor: pointer;
+            padding: 4px 8px;
+        }
+
+        .nav-overlay {
+            display: none;
+        }
+
+        .sidebar-logo {
+            display: none;
         }
 
         /* ---------- HERO ---------- */
@@ -513,13 +515,85 @@
 
         @media (max-width: 780px) {
             nav.wrap {
-                flex-direction: column;
-                gap: 12px;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                gap: 0;
+            }
+
+            .menu-toggle {
+                display: block;
             }
 
             nav ul {
-                gap: 16px;
-                font-size: 0.85rem;
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100vh;
+                width: 240px;
+                max-width: 78vw;
+                margin: 0;
+                background: #f57627;
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 0;
+                padding: 24px 24px 24px;
+                transform: translateX(-100%);
+                transition: transform 0.28s ease;
+                z-index: 100;
+                box-shadow: 8px 0 24px rgba(0, 0, 0, 0.3);
+                overflow-y: auto;
+            }
+
+            nav ul.open {
+                transform: translateX(0);
+            }
+
+            nav ul li {
+                width: 100%;
+                text-align: right;
+                border-bottom: 1px solid rgba(18, 18, 26, 0.15);
+            }
+
+            nav ul li:last-child {
+                border-bottom: none;
+            }
+
+            nav ul li a {
+                display: block;
+                padding: 14px 0;
+            }
+
+            .sidebar-logo {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+                border-bottom: none !important;
+                margin-bottom: 8px;
+            }
+
+            .sidebar-logo img {
+                width: 100%;
+                max-width: 170px;
+                height: auto;
+                display: block;
+                margin: 0 auto;
+            }
+
+            .nav-overlay {
+                display: block;
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.45);
+                z-index: 90;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.28s ease;
+            }
+
+            .nav-overlay.open {
+                opacity: 1;
+                pointer-events: auto;
             }
 
             .hero {
@@ -616,8 +690,13 @@
 
     <header>
         <nav class="wrap">
-            <div class="brand"><span class="brand-mark"></span> Tavern Games</div>
-            <ul>
+            <a href="/" class="brand"><img src="images/tavern-banner-logo.jpg" alt="Tavern Games Trading Card Store"
+                    class="brand-logo"></a>
+            <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu" aria-expanded="false"
+                aria-controls="navLinks">☰</button>
+            <ul id="navLinks">
+                <li class="sidebar-logo"><img src="images/tavern-banner-logo.jpg" alt="Tavern Games Trading Card Store">
+                </li>
                 <li><a href='https://shop.taverngames.sg'>Shop our Products</a></li>
                 <li><a href="#stock">What We Sell</a></li>
                 <li><a href="#find">Find Us</a></li>
@@ -625,7 +704,9 @@
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
+        <div class="nav-overlay" id="navOverlay" onclick="closeMenu()"></div>
     </header>
+
 
     <main>
         <section class="hero">
@@ -641,6 +722,7 @@
                             class="contact-pill">Join our Telegram Channel</a>
                         <a href="https://shop.taverngames.sg/" target="_blank" rel="noopener"
                             class="contact-pill">Purchase Products</a>
+                        <a href="#events" target="_blank" rel="noopener" class="contact-pill">Weekly Events</a>
                     </div>
 
                 </div>
@@ -884,6 +966,28 @@
                 behavior: 'smooth'
             });
         }
+
+        function toggleMenu() {
+            const nav = document.getElementById('navLinks');
+            const overlay = document.getElementById('navOverlay');
+            const btn = document.querySelector('.menu-toggle');
+            const isOpen = nav.classList.toggle('open');
+            overlay.classList.toggle('open', isOpen);
+            btn.setAttribute('aria-expanded', isOpen);
+        }
+
+        function closeMenu() {
+            const nav = document.getElementById('navLinks');
+            const overlay = document.getElementById('navOverlay');
+            const btn = document.querySelector('.menu-toggle');
+            nav.classList.remove('open');
+            overlay.classList.remove('open');
+            btn.setAttribute('aria-expanded', 'false');
+        }
+
+        document.querySelectorAll('#navLinks a').forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
     </script>
 </body>
 
