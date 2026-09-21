@@ -30,6 +30,45 @@
         content="Singapore's friendly neighbourhood TCG shop. Pokemon, Magic: The Gathering, One Piece &amp; Riftbound singles and sealed product, plus weekly game nights.">
     <meta name="twitter:image" content="https://www.taverngames.sg/images/store.jpg">
 
+    <!-- Structured data for local business / brand search -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Store",
+      "name": "Tavern Games TCG",
+      "alternateName": "Tavern Games",
+      "description": "Tavern Games TCG is Singapore's friendly neighbourhood TCG shop in Balestier. Shop Pokemon, Magic: The Gathering, One Piece, Riftbound, and Disney Lorcana singles & sealed product, plus weekly game nights.",
+      "url": "https://www.taverngames.sg/",
+      "image": "https://www.taverngames.sg/images/store.jpg",
+      "priceRange": "$$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "238 Balestier Rd, #02-03, URBAN HERITAGE",
+        "addressLocality": "Singapore",
+        "postalCode": "329701",
+        "addressCountry": "SG"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 1.3217930616615279,
+        "longitude": 103.85072950972186
+      },
+      "openingHoursSpecification": [
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": "Tuesday", "opens": "14:00", "closes": "20:00" },
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "15:00", "closes": "21:00" },
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "15:00", "closes": "20:00" },
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "14:00", "closes": "20:00" },
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "14:00", "closes": "20:00" }
+      ],
+      "sameAs": [
+        "https://www.instagram.com/taverngames.tcg/",
+        "https://www.tiktok.com/@taverngames.tcg",
+        "https://t.me/+FCgdAub8pIYyYTY9"
+      ],
+      "hasMap": "https://www.google.com/maps/dir//Tavern+Games+TCG,+238+Balestier+Rd,+%2302-03,+URBAN+HERITAGE,+Singapore+329701"
+    }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link
         href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
@@ -347,23 +386,38 @@
             font-size: clamp(1.6rem, 3vw, 2.1rem);
         }
 
-        /* What we sell */
-        .stock-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+        /* What we sell — horizontal one-card carousel */
+        .stock-carousel {
+            position: relative;
+            overflow: visible;
+        }
+
+        .stock-carousel-track {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            gap: 18px;
+        }
+
+        .stock-carousel-track::-webkit-scrollbar {
+            display: none;
         }
 
         .stock-card {
+            flex: 0 0 calc((100% - 36px) / 3);
+            width: calc((100% - 36px) / 3);
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
             text-decoration: none;
             color: inherit;
             border: 1px solid var(--line);
             border-radius: 14px;
-            padding: 26px 22px;
             background: var(--ink-soft);
+            overflow: hidden;
+            scroll-snap-align: start;
             transition: border-color 0.2s ease, transform 0.2s ease;
         }
 
@@ -372,32 +426,10 @@
             transform: translateY(-3px);
         }
 
-        .stock-rarity {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.68rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--holo-teal);
-            margin-bottom: 10px;
-        }
-
-        .stock-card h3 {
-            font-size: 1.15rem;
-            margin-bottom: 8px;
-        }
-
-        .stock-card p {
-            color: var(--parchment-dim);
-            font-size: 0.92rem;
-        }
-
         .stock-card-img {
-            margin-top: 16px;
             width: 100%;
-            height: 160px;
-            border-radius: 10px;
+            aspect-ratio: 16 / 11;
             overflow: hidden;
-            border: 1px solid var(--line);
             background: #0c0c12;
         }
 
@@ -406,6 +438,107 @@
             height: 100%;
             object-fit: cover;
             display: block;
+        }
+
+        .stock-card-body {
+            padding: 16px 18px 20px;
+        }
+
+        .stock-tag-row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .stock-tag {
+            display: inline-block;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.62rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 999px;
+        }
+
+        .tag-pokemon {
+            background: rgba(246, 190, 90, 0.18);
+            color: #f6be5a;
+        }
+
+        .tag-mtg {
+            background: rgba(167, 139, 250, 0.18);
+            color: #a78bfa;
+        }
+
+        .tag-onepiece {
+            background: rgba(96, 165, 250, 0.18);
+            color: #60a5fa;
+        }
+
+        .tag-riftbound {
+            background: rgba(246, 118, 40, 0.18);
+            color: var(--foil-gold);
+        }
+
+        .tag-lorcana {
+            background: rgba(244, 114, 182, 0.18);
+            color: #f472b6;
+        }
+
+        .tag-accessories {
+            background: rgba(203, 213, 225, 0.18);
+            color: #cbd5e1;
+        }
+
+        .stock-flag {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--holo-teal);
+        }
+
+        .stock-card h3 {
+            font-size: 1rem;
+            margin-bottom: 6px;
+        }
+
+        .stock-card p {
+            color: var(--parchment-dim);
+            font-size: 0.82rem;
+            line-height: 1.45;
+        }
+
+        .stock-carousel .prev-btn {
+            left: -44px;
+        }
+
+        .stock-carousel .next-btn {
+            right: -44px;
+        }
+
+        .stock-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .stock-dots button {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: none;
+            padding: 0;
+            background: var(--line);
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .stock-dots button.active {
+            background: var(--holo-teal);
         }
 
         /* Find us */
@@ -478,6 +611,159 @@
         }
 
         /* Contact */
+        .events-intro {
+            max-width: 620px;
+            color: var(--parchment-dim);
+            margin: 0 0 28px;
+            font-family: Copperplate, Papyrus, fantasy;
+        }
+
+        .event-feature {
+            display: grid;
+            grid-template-columns: 1.1fr .9fr;
+            gap: 28px;
+            align-items: stretch;
+            margin-bottom: 42px;
+        }
+
+        .event-feature-copy {
+            padding: 30px;
+            border: 1px solid rgba(231, 137, 30, .45);
+            border-radius: 18px;
+            background: linear-gradient(135deg, rgba(231, 137, 30, .16), rgba(18, 18, 26, .9));
+        }
+
+        .event-kicker,
+        .event-tag {
+            display: inline-flex;
+            width: fit-content;
+            border-radius: 999px;
+            padding: 6px 10px;
+            font: 600 .72rem 'IBM Plex Mono', monospace;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+        }
+
+        .event-kicker {
+            color: #171219;
+            background: var(--foil-gold);
+        }
+
+        .event-tag {
+            color: #ffd7c5;
+            background: rgba(182, 65, 45, .35);
+        }
+
+        .event-feature h3 {
+            margin: 20px 0 10px;
+            font-size: clamp(1.8rem, 4vw, 3rem);
+        }
+
+        .event-meta {
+            display: grid;
+            gap: 8px;
+            margin: 20px 0 26px;
+            color: var(--parchment-dim);
+            font: .9rem 'IBM Plex Mono', monospace;
+        }
+
+        .event-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .event-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 18px;
+            border-radius: 999px;
+            background: var(--foil-gold);
+            color: #171219;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .event-button.secondary {
+            background: transparent;
+            color: var(--parchment);
+            border: 1px solid var(--line);
+        }
+
+        .event-feature img {
+            width: 100%;
+            height: 100%;
+            min-height: 300px;
+            object-fit: cover;
+            border-radius: 18px;
+        }
+
+        .events-subhead {
+            margin: 0 0 16px;
+            color: var(--parchment);
+        }
+
+        .event-cards {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .event-card {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            min-height: 235px;
+            padding: 20px;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, .025);
+        }
+
+        .event-card:hover {
+            border-color: rgba(231, 137, 30, .65);
+            transform: translateY(-2px);
+            transition: 180ms ease;
+        }
+
+        .event-card h4 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .event-card p {
+            margin: 0;
+            color: var(--parchment-dim);
+            font-size: .9rem;
+        }
+
+        .event-card .event-button {
+            margin-top: auto;
+            padding: 9px 14px;
+            font-size: .85rem;
+        }
+
+        @media (max-width: 760px) {
+
+            .event-feature,
+            .event-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .event-feature img {
+                order: 1;
+                height: 420px;
+                min-height: 420px;
+                max-height: none;
+            }
+
+            .event-feature-copy {
+                order: 2;
+                padding: 24px;
+            }
+        }
+
         .contact-row {
             display: flex;
             flex-wrap: wrap;
@@ -621,6 +907,19 @@
             .find-grid {
                 grid-template-columns: 1fr;
             }
+
+            .stock-carousel .prev-btn {
+                left: 8px;
+            }
+
+            .stock-carousel .next-btn {
+                right: 8px;
+            }
+
+            .stock-card {
+                flex: 0 0 100%;
+                width: 100%;
+            }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -713,7 +1012,7 @@
         <section class="hero">
             <div class="wrap hero-content">
                 <div class="hero-text-block">
-                    <h1>Welcome to Tavern Games</h1>
+                    <h1>Tavern Games TCG</h1>
                     <div style="height: 24px;" aria-hidden="true"></div>
                     <h2>Your friendly neighbourhood TCG shop located in the heart of Balestier</h2>
 
@@ -753,78 +1052,168 @@
                     <span class="section-index">01</span>
                     <h2>Games we carry</h2>
                 </div>
-                <div class="stock-grid">
-                    <a href="https://shop.taverngames.sg/collections/pokemon-sealed" class="stock-card">
-                        <div>
-                            <div class="stock-rarity">Top Seller</div>
-                            <h3>Pokemon</h3>
-                            <p>✨ Find the latest English and Japanese Pokemon releases at our stall! Open packs to pull
-                                your TOP CHASE or purchase our competitvely priced singles we carry!</p>
-                        </div>
-                        <div class="stock-card-img">
-                            <img src="images/pokemon-30th.jpg" alt="Pokemon 30th Anniversary">
-                        </div>
-                    </a>
+                <div class="stock-carousel carousel-container">
+                    <div class="stock-carousel-track carousel-track" id="stockCarouselTrack">
+                        <a href="https://shop.taverngames.sg/collections/pokemon-sealed" class="stock-card">
+                            <div class="stock-card-img">
+                                <img src="images/pokemon-30th.jpg" alt="Pokemon 30th Anniversary">
+                            </div>
+                            <div class="stock-card-body">
+                                <div class="stock-tag-row">
+                                    <span class="stock-tag tag-pokemon">Pokémon</span>
+                                    <span class="stock-flag">Top Seller</span>
+                                </div>
+                                <h3>Pokemon</h3>
+                                <p>✨ Find the latest English and Japanese Pokemon releases at our stall! Open packs to
+                                    pull
+                                    your TOP CHASE or purchase our competitvely priced singles we carry!</p>
+                            </div>
+                        </a>
 
-                    <!-- Magic: The Gathering -->
-                    <a href="https://shop.taverngames.sg/collections/magic-the-gathering-sealed" class="stock-card">
-                        <div>
-                            <div class="stock-rarity"></div>
-                            <h3>Magic: The Gathering</h3>
-                            <p> 🧙🏽‍♂️ From play & collector boosters to commander decks, we have a product suitable
-                                for every Magic Player! Come down to view our collection of Secret Lair Singles and
-                                Commander Staples for Sale!</p>
-                        </div>
-                        <div class="stock-card-img">
-                            <img src="images/mtg.jpg" alt="Magic The Gathering">
-                        </div>
-                    </a>
-                    <a href="https://shop.taverngames.sg/collections/one-piece-sealed" class="stock-card">
-                        <div class="stock-rarity"></div>
-                        <h3>One Piece</h3>
-                        <p> 🏴‍☠️ The most trending TCG of 2026 has set foot in our store, from the latest Japanese
-                            releases &
-                            elusive treasured
-                            singles stored behind our display case, our store has something for every One Piece
-                            Collector!
-                        </p>
-                        <div class="stock-card-img">
-                            <img src="images/one_piece.jpg" alt="One Piece">
-                        </div>
-                    </a>
+                        <!-- Magic: The Gathering -->
+                        <a href="https://shop.taverngames.sg/collections/magic-the-gathering-sealed" class="stock-card">
+                            <div class="stock-card-img">
+                                <img src="images/mtg.jpg" alt="Magic The Gathering">
+                            </div>
+                            <div class="stock-card-body">
+                                <div class="stock-tag-row">
+                                    <span class="stock-tag tag-mtg">MTG</span>
+                                </div>
+                                <h3>Magic: The Gathering</h3>
+                                <p> 🧙🏽‍♂️ From play & collector boosters to commander decks, we have a product
+                                    suitable
+                                    for every Magic Player! Come down to view our collection of Secret Lair Singles and
+                                    Commander Staples for Sale!</p>
+                            </div>
+                        </a>
 
-                    <a href="https://shop.taverngames.sg/collections/riftbound-sealed" class="stock-card">
-                        <div class="stock-rarity">New Arrival</div>
-                        <h3>Riftbound</h3>
-                        <p> ✨ Enter and explore the world of Riftbound, the latest TCG to take the Singapore market by
-                            storm!
-                        </p>
-                        <div class="stock-card-img">
-                            <img src="images/Riftbound.jpg" alt="Riftbound">
-                        </div>
-                    </a>
+                        <a href="https://shop.taverngames.sg/collections/one-piece-sealed" class="stock-card">
+                            <div class="stock-card-img">
+                                <img src="images/one_piece.jpg" alt="One Piece">
+                            </div>
+                            <div class="stock-card-body">
+                                <div class="stock-tag-row">
+                                    <span class="stock-tag tag-onepiece">One Piece</span>
+                                </div>
+                                <h3>One Piece</h3>
+                                <p> 🏴‍☠️ The most trending TCG of 2026 has set foot in our store, from the latest
+                                    Japanese
+                                    releases &
+                                    elusive treasured
+                                    singles stored behind our display case, our store has something for every One Piece
+                                    Collector!
+                                </p>
+                            </div>
+                        </a>
 
-                    <a href="https://shop.taverngames.sg/collections/lorcana" class="stock-card">
-                        <div class="stock-rarity">New Arrival</div>
-                        <h3>Disney Lorcana</h3>
-                        <p> 🪄 Unleash the magic with Disney Lorcana! Collect your favorite Disney characters and
-                            embark on an enchanting adventure.
-                        </p>
-                        <div class="stock-card-img">
-                            <img src="images/lorcana.jpg" alt="Disney Lorcana">
-                        </div>
-                    </a>
+                        <a href="https://shop.taverngames.sg/collections/riftbound-sealed" class="stock-card">
+                            <div class="stock-card-img">
+                                <img src="images/Riftbound.jpg" alt="Riftbound">
+                            </div>
+                            <div class="stock-card-body">
+                                <div class="stock-tag-row">
+                                    <span class="stock-tag tag-riftbound">Riftbound</span>
+                                    <span class="stock-flag">New Arrival</span>
+                                </div>
+                                <h3>Riftbound</h3>
+                                <p> ✨ Enter and explore the world of Riftbound, the latest TCG to take the Singapore
+                                    market by
+                                    storm!
+                                </p>
+                            </div>
+                        </a>
 
-                    <a href="https://shop.taverngames.sg/collections/accessories" class="stock-card">
-                        <div class="stock-rarity"></div>
-                        <h3>TCG Accessories</h3>
-                        <p> Deckboxes, sleeves, toploaders, and more! We have a wide range of TCG accessories to protect
-                            your cards and suit your needs.
-                        </p>
-                        <div class="stock-card-img">
-                            <img src="images/tcg-accessories-957775.jpg" alt="tcg accessories">
+                        <a href="https://shop.taverngames.sg/collections/lorcana" class="stock-card">
+                            <div class="stock-card-img">
+                                <img src="images/lorcana.jpg" alt="Disney Lorcana">
+                            </div>
+                            <div class="stock-card-body">
+                                <div class="stock-tag-row">
+                                    <span class="stock-tag tag-lorcana">Lorcana</span>
+                                    <span class="stock-flag">New Arrival</span>
+                                </div>
+                                <h3>Disney Lorcana</h3>
+                                <p> 🪄 Unleash the magic with Disney Lorcana! Collect your favorite Disney characters
+                                    and
+                                    embark on an enchanting adventure.
+                                </p>
+                            </div>
+                        </a>
+
+                        <a href="https://shop.taverngames.sg/collections/accessories" class="stock-card">
+                            <div class="stock-card-img">
+                                <img src="images/tcg-accessories-957775.jpg" alt="tcg accessories">
+                            </div>
+                            <div class="stock-card-body">
+                                <div class="stock-tag-row">
+                                    <span class="stock-tag tag-accessories">Accessories</span>
+                                </div>
+                                <h3>TCG Accessories</h3>
+                                <p> Deckboxes, sleeves, toploaders, and more! We have a wide range of TCG accessories to
+                                    protect
+                                    your cards and suit your needs.
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <button class="nav-btn prev-btn" onclick="stepSlide(-1, 'stockCarouselTrack')"
+                        aria-label="Previous game">&#10094;</button>
+                    <button class="nav-btn next-btn" onclick="stepSlide(1, 'stockCarouselTrack')"
+                        aria-label="Next game">&#10095;</button>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="events">
+            <div class="wrap">
+                <div class="section-head">
+                    <span class="section-index">02</span>
+                    <h2>Play at Tavern Games</h2>
+                </div>
+                <p class="events-intro">Come for the cards, stay for the community. Find a game night that fits your
+                    pace, from beginner-friendly sessions to organised play!</p>
+
+                <div class="event-feature">
+                    <div class="event-feature-copy">
+                        <span class="event-kicker">Showcase Event of the Week</span>
+                        <h3>Riftbound Nexus Night</h3>
+                        <div class="event-meta">
+                            <span>Wednesday · 7:00–8:00pm</span>
+                            <span>Balestier · $12 Entry</span>
+                            <span>Prize support available</span>
                         </div>
-                    </a>
+                        <div class="event-actions">
+                            <a class="event-button" href="https://locator.riftbound.uvsgames.com/events/941613">Register
+                                now</a>
+                            <a class="event-button secondary" href="https://t.me/+FCgdAub8pIYyYTY9">Join our
+                                Community!</a>
+                        </div>
+                    </div>
+                    <img src="Sept_w3_images/Sept_w3_schedule.jpeg"
+                        alt="Weekly event schedule poster at Tavern Games TCG" />
+                </div>
+                <h3 class="events-subhead">Upcoming events</h3>
+                <div class="event-cards">
+                    <article class="event-card"><span class="event-tag">Lorcana</span>
+                        <h4>Pack Rush</h4>
+                        <p>Tuesday · 7:00–8:00pm</p>
+                        <p>Quick, welcoming games for new and experienced players.</p><a class="event-button"
+                            href="https://tcg.ravensburgerplay.com/events/941614">View details</a>
+                    </article>
+                    <article class="event-card"><span class="event-tag">Riftbound</span>
+                        <h4>Nexus Afternoon</h4>
+                        <p>Saturday · 3:00–5:00pm</p>
+                        <p>Bring your deck, or ask the team how to get started.</p><a class="event-button"
+                            href="https://locator.riftbound.uvsgames.com/events/941608">Register</a>
+                    </article>
+                    <article class="event-card"><span class="event-tag">MTG</span>
+                        <h4>Casual Commander</h4>
+                        <p>Sunday · 5:00–7:00pm</p>
+                        <p>Relaxed multiplayer Commander games at the store.</p><a class="event-button secondary"
+                            href="#contact">Message us</a>
+                    </article>
                 </div>
             </div>
         </section>
@@ -832,7 +1221,7 @@
         <section id="find">
             <div class="wrap">
                 <div class="section-head">
-                    <span class="section-index">02</span>
+                    <span class="section-index">03</span>
                     <h2>Find us</h2>
                 </div>
                 <div class="find-grid">
@@ -864,81 +1253,6 @@
                             Get directions on Google Maps →
                         </a>
                     </p>
-                </div>
-            </div>
-        </section>
-
-        <section id="events">
-            <div class="wrap">
-                <div class="section-head">
-                    <span class="section-index">03</span>
-                    <h2> Weekly Events!</h2>
-                </div>
-                <p style="font-family:  'Trebuchet MS', sans-serif; color: #e7891e;">
-                    Click the link to sign up for our events!</p> <br>
-                <div class="find-grid">
-                    <ul class="schedule-list event-schedule">
-                        <li class="schedule-heading"><span class="schedule-day">Our Weekly Events:</span>
-                        </li>
-                        <li class="event-row">
-                            <span class="event-date">15th September, Tuesday</span>
-                            <span class="event-time-name"><span class="event-time">7pm – 8pm</span> · <a
-                                    href="https://tcg.ravensburgerplay.com/events/941614">Lorcana Pack Rush</a></span>
-                        </li>
-                        <li class="event-row">
-                            <span class="event-date">16th September, Wednesday</span>
-                            <span class="event-time-name"><span class="event-time">7pm – 8pm</span> · <a
-                                    href="https://locator.riftbound.uvsgames.com/events/941613">Nexus
-                                    Night</a></span>
-                        </li>
-                        <li class="event-row">
-                            <span class="event-date">18th September, Friday</span>
-                            <span class="event-time-name"><span class="event-time">7pm – 9pm</span> · <a
-                                    href="https://locator.riftbound.uvsgames.com/events/941610">Nexus
-                                    Night</a></span>
-                        </li>
-                        <li class="event-row">
-                            <span class="event-date">19th September, Saturday</span>
-                            <span class="event-time-name"><span class="event-time">3pm – 5pm</span> · <a
-                                    href="https://locator.riftbound.uvsgames.com/events/941608">Nexus
-                                    Afternoon</a></span>
-                        </li>
-                        <li class="event-row">
-                            <span class="event-date">20th September, Sunday</span>
-                            <span class="event-time-name"><span class="event-time">3pm – 5pm</span> . <a
-                                    href="https://tcg.ravensburgerplay.com/events/941620">Lorcana
-                                    Constructed</a></span>
-                        </li>
-                        <li class="event-row">
-                            <span class="event-date">20th September, Sunday</span>
-                            <span class="event-time-name"><span class="event-time">5pm – 7pm</span> · Casual
-                                Commander MTG</span>
-                        </li>
-                    </ul>
-
-                    <div class="carousel-container">
-                        <div class="carousel-track-tall" id="eventsCarouselTrack">
-                            <img src="Sept_w3_images/Sept_w3_schedule.jpeg"
-                                alt="Riftbound Nexus event at Tavern Games TCG" />
-                            <img src="Sept_w3_images/sept_w2_winners.jpg"
-                                alt="Riftbound Nexus event at Tavern Games TCG" />
-                            <img src="Sept_w3_images/sept_w2_winners_1.jpg"
-                                alt="Riftbound Nexus event at Tavern Games TCG" />
-                            <img src="Sept_w3_images/sept_w2_winners_2.jpg"
-                                alt="Riftbound Nexus event at Tavern Games TCG" />
-                            <img src="Sept_w3_images/sept_w2_winners_3.jpg"
-                                alt="Riftbound Nexus event at Tavern Games TCG" />
-                            <img src="Sept_w3_images/mtg_games.jpg" alt="Riftbound Nexus event at Tavern Games TCG" />
-
-                        </div>
-
-                        <button class="nav-btn prev-btn" onclick="slide(-1, 'eventsCarouselTrack')"
-                            aria-label="Previous image">&#10094;</button>
-                        <button class="nav-btn next-btn" onclick="slide(1, 'eventsCarouselTrack')"
-                            aria-label="Next image">&#10095;</button>
-                    </div>
-
-
                 </div>
             </div>
         </section>
@@ -996,6 +1310,101 @@
         document.querySelectorAll('#navLinks a').forEach(link => {
             link.addEventListener('click', closeMenu);
         });
+
+        // Auto-advancing animation for the hero carousel
+        function initAutoCarousel(trackId, intervalMs = 3500) {
+            const track = document.getElementById(trackId);
+            if (!track) return;
+            let timer;
+
+            function goToNext() {
+                const maxScrollLeft = track.scrollWidth - track.clientWidth;
+                if (track.scrollLeft >= maxScrollLeft - 5) {
+                    track.scrollTo({ left: 0, behavior: 'smooth' });
+                } else {
+                    track.scrollBy({ left: track.clientWidth, behavior: 'smooth' });
+                }
+            }
+
+            function start() {
+                stop();
+                timer = setInterval(goToNext, intervalMs);
+            }
+            function stop() {
+                clearInterval(timer);
+            }
+
+            // Pause while the visitor is interacting, resume after
+            track.addEventListener('mouseenter', stop);
+            track.addEventListener('mouseleave', start);
+            track.addEventListener('touchstart', stop, { passive: true });
+            track.addEventListener('touchend', () => setTimeout(start, 3000), { passive: true });
+
+            start();
+        }
+
+        initAutoCarousel('heroCarouselTrack', 3500);
+
+        // "Games we carry" carousel: advances one card at a time, loops to start
+        function initStepCarousel(trackId, intervalMs = 2600) {
+            const track = document.getElementById(trackId);
+            if (!track) return;
+            let timer;
+
+            function cardStep() {
+                const card = track.querySelector('.stock-card');
+                if (!card) return track.clientWidth;
+                const gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || 0) || 0;
+                return card.getBoundingClientRect().width + gap;
+            }
+
+            function goToNext() {
+                const step = cardStep();
+                const maxScrollLeft = track.scrollWidth - track.clientWidth;
+                if (track.scrollLeft >= maxScrollLeft - 5) {
+                    track.scrollTo({ left: 0, behavior: 'smooth' });
+                } else {
+                    track.scrollBy({ left: step, behavior: 'smooth' });
+                }
+            }
+
+            function goToPrev() {
+                const step = cardStep();
+                if (track.scrollLeft <= 5) {
+                    track.scrollTo({ left: track.scrollWidth - track.clientWidth, behavior: 'smooth' });
+                } else {
+                    track.scrollBy({ left: -step, behavior: 'smooth' });
+                }
+            }
+
+            function start() {
+                stop();
+                timer = setInterval(goToNext, intervalMs);
+            }
+            function stop() {
+                clearInterval(timer);
+            }
+
+            track.addEventListener('mouseenter', stop);
+            track.addEventListener('mouseleave', start);
+            track.addEventListener('touchstart', stop, { passive: true });
+            track.addEventListener('touchend', () => setTimeout(start, 3000), { passive: true });
+
+            // Expose manual controls for the prev/next buttons
+            track._stepNext = () => { stop(); goToNext(); start(); };
+            track._stepPrev = () => { stop(); goToPrev(); start(); };
+
+            start();
+        }
+
+        function stepSlide(direction, trackId) {
+            const track = document.getElementById(trackId);
+            if (!track) return;
+            if (direction > 0 && track._stepNext) track._stepNext();
+            if (direction < 0 && track._stepPrev) track._stepPrev();
+        }
+
+        initStepCarousel('stockCarouselTrack', 2600);
     </script>
 </body>
 
