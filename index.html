@@ -150,7 +150,7 @@
 
         .brand-logo {
             display: block;
-            height: 52px;
+            height: 72px;
             width: auto;
         }
 
@@ -719,6 +719,26 @@
             border: 1px solid var(--line);
             border-radius: 16px;
             background: rgba(255, 255, 255, .025);
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
+        }
+
+        /* Semi-opaque background image; swap per card with --card-bg */
+        .event-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            background-image: var(--card-bg, url('images/store.jpg'));
+            background-size: cover;
+            background-position: center;
+            opacity: 0.25;
+            transition: opacity 180ms ease;
+        }
+
+        .event-card:hover::before {
+            opacity: 0.35;
         }
 
         .event-card:hover {
@@ -761,6 +781,196 @@
             .event-feature-copy {
                 order: 2;
                 padding: 24px;
+            }
+        }
+
+        /* ---------- SHOP PREVIEW (mini browser window) ---------- */
+        .shop-preview {
+            display: block;
+            max-width: 720px;
+            margin: 0 auto;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            overflow: hidden;
+            background: var(--ink-soft);
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+            transition: border-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .shop-preview:hover {
+            border-color: var(--holo-teal);
+            transform: translateY(-3px);
+        }
+
+        .shop-bar {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 10px 14px;
+            background: #0c0c12;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .shop-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .shop-dots i {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--line);
+        }
+
+        .shop-dots i:nth-child(1) {
+            background: #ff5f57;
+        }
+
+        .shop-dots i:nth-child(2) {
+            background: #febc2e;
+        }
+
+        .shop-dots i:nth-child(3) {
+            background: #28c840;
+        }
+
+        .shop-url {
+            flex: 1;
+            min-width: 0;
+            padding: 5px 12px;
+            border-radius: 999px;
+            background: var(--ink-soft);
+            font: 0.75rem 'IBM Plex Mono', monospace;
+            color: var(--parchment-dim);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .shop-hero {
+            position: relative;
+            aspect-ratio: 21 / 8;
+            background: #0c0c12;
+        }
+
+        .shop-hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            opacity: 0.55;
+        }
+
+        .shop-hero-text {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 28px;
+            background: linear-gradient(90deg, rgba(18, 18, 26, 0.85), rgba(18, 18, 26, 0) 75%);
+        }
+
+        .shop-hero-text h3 {
+            font-size: clamp(1.2rem, 3vw, 1.7rem);
+            margin-bottom: 4px;
+        }
+
+        .shop-hero-text p {
+            font-size: 0.85rem;
+            color: var(--parchment-dim);
+        }
+
+        .shop-tiles {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            padding: 16px;
+            transition: opacity 0.4s ease;
+        }
+
+        a.shop-tile {
+            display: block;
+            text-decoration: none;
+        }
+
+        .shop-tiles.fading {
+            opacity: 0;
+        }
+
+        .shop-tile {
+            text-align: center;
+            font: 0.68rem 'IBM Plex Mono', monospace;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            color: var(--parchment-dim);
+        }
+
+        .shop-tile img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 10px;
+            display: block;
+            margin-bottom: 6px;
+            border: 1px solid var(--line);
+        }
+
+        .shop-tiles.live {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .shop-tiles.live a.shop-tile {
+            text-decoration: none;
+            text-transform: none;
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 0.8rem;
+            text-align: left;
+            color: var(--parchment);
+        }
+
+        .shop-tiles.live a.shop-tile:hover {
+            color: var(--foil-gold);
+        }
+
+        .shop-price {
+            display: block;
+            margin-top: 2px;
+            font: 0.75rem 'IBM Plex Mono', monospace;
+            color: var(--foil-gold);
+        }
+
+        .shop-preview:hover {
+            transform: none;
+        }
+
+        .shop-cta {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 14px 18px;
+            border-top: 1px solid var(--line);
+            font-size: 0.9rem;
+        }
+
+        .shop-cta strong {
+            color: var(--foil-gold);
+            font-weight: 600;
+        }
+
+        @media (max-width: 600px) {
+            .shop-tiles {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .shop-hero {
+                aspect-ratio: 16 / 9;
             }
         }
 
@@ -1029,11 +1239,11 @@
 
                 <div class="carousel-container">
                     <div class="carousel-track" id="heroCarouselTrack">
-                        <img src="images/event_prizes.jpeg" alt="victory royale" />
-                        <img src="images/playing_1.jpg" alt="Playing Casual" />
-                        <img src="images/store.jpg" alt="Tavern Games TCG storefront in Balestier, Singapore" />
-                        <img src="images/overview.jpg" alt="Interior view of Tavern Games TCG showing card displays" />
                         <img src="images/playing.jpg" alt="Customers playing trading card games at Tavern Games TCG" />
+                        <img src="images/store.jpg" alt="Tavern Games TCG storefront in Balestier, Singapore" />
+                        <img src="images/playing_1.jpg" alt="Playing Casual" />
+                        <img src="images/overview.jpg" alt="Interior view of Tavern Games TCG showing card displays" />
+
                     </div>
 
                     <button class="nav-btn prev-btn" onclick="slide(-1, 'heroCarouselTrack')"
@@ -1201,31 +1411,36 @@
                 </div>
                 <h3 class="events-subhead">Upcoming events</h3>
                 <div class="event-cards">
-                    <article class="event-card"><span class="event-tag">Riftbound</span>
+                    <article class="event-card" style="--card-bg: url('images/riftbound_nexus.png')"><span
+                            class="event-tag">Riftbound</span>
                         <h4>Nexus Night</h4>
                         <p>Tuesday, 29 September · 7:30–9:00pm</p>
                         <a class="event-button"
                             href="https://locator.riftbound.uvsgames.com/events/1007441">Register</a>
                     </article>
-                    <article class="event-card"><span class="event-tag">Lorcana</span>
+                    <article class="event-card" style="--card-bg: url('images/Lorcana_Pack_Rush.png')"><span
+                            class="event-tag">Lorcana</span>
                         <h4>Pack Rush</h4>
                         <p>Wednesday, 30 September · 7:00–8:00pm</p>
                         <a class="event-button" href="https://tcg.ravensburgerplay.com/events/1007442">Register</a>
                     </article>
-                    <article class="event-card"><span class="event-tag">Riftbound</span>
+                    <article class="event-card" style="--card-bg: url('images/riftbound_nexus.png')"><span
+                            class="event-tag">Riftbound</span>
                         <h4>Nexus Night</h4>
                         <p>Friday, 2 October · 7:30–9:00pm</p>
                         <p></p><a class="event-button"
                             href="https://locator.riftbound.uvsgames.com/events/1008237">Register</a>
                     </article>
-                    <article class="event-card"><span class="event-tag">MTG</span>
+                    <article class="event-card" style="--card-bg: url('images/mtg.jpg')"><span
+                            class="event-tag">MTG</span>
                         <h4>Casual Commander</h4>
                         <p>Saturday, 3 October · 6:00–9:00pm</p>
                         <a class="event-button secondary" href="https://t.me/+FCgdAub8pIYyYTY9">Join Telegram group to
                             Sign
                             Up!</a>
                     </article>
-                    <article class="event-card"><span class="event-tag">Lorcana</span>
+                    <article class="event-card" style="--card-bg: url('images/Lorcana_Pack_Rush.png')"><span
+                            class="event-tag">Lorcana</span>
                         <h4>Learn to Play</h4>
                         <p>Sunday, 4 October · 3:00–6:00pm</p>
                         <a class="event-button" href="https://tcg.ravensburgerplay.com/events/1007436">Register</a>
@@ -1234,17 +1449,50 @@
             </div>
         </section>
 
-        <section id="find">
+        <section id="shop">
             <div class="wrap">
                 <div class="section-head">
                     <span class="section-index">03</span>
+                    <h2>Shop online</h2>
+                </div>
+                <div class="shop-preview">
+                    <div class="shop-bar">
+                        <span class="shop-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                        <span class="shop-url">shop.taverngames.sg</span>
+                    </div>
+                    <div class="shop-hero">
+                        <img src="images/overview.jpg" alt="">
+                        <div class="shop-hero-text">
+                            <h3>Tavern Games TCG</h3>
+                            <p>Singles, sealed product &amp; accessories, delivered to you.</p>
+                        </div>
+                    </div>
+                    <!-- Static fallback tiles; replaced by live products if the store allows it -->
+                    <div class="shop-tiles" id="shopProducts">
+                        <div class="shop-tile"><img src="images/pokemon-30th.jpg" alt="">Pokémon</div>
+                        <div class="shop-tile"><img src="images/mtg.jpg" alt="">MTG</div>
+                        <div class="shop-tile"><img src="images/one_piece.jpg" alt="">One Piece</div>
+                        <div class="shop-tile"><img src="images/Riftbound.jpg" alt="">Riftbound</div>
+                        <div class="shop-tile"><img src="images/lorcana.jpg" alt="">Lorcana</div>
+                        <div class="shop-tile"><img src="images/tcg-accessories-957775.jpg" alt="">Accessories</div>
+                    </div>
+                    <a class="shop-cta" href="https://shop.taverngames.sg/" target="_blank" rel="noopener">
+                        <span>Browse the full catalogue online</span>
+                        <strong>Open shop in new tab →</strong>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="find">
+            <div class="wrap">
+                <div class="section-head">
+                    <span class="section-index">04</span>
                     <h2>Find us</h2>
                 </div>
                 <div class="find-grid">
                     <ul class="schedule-list">
                         <li><span class="schedule-day">Our Opening Hours:</span>
-                        </li>
-                        <li><span class="schedule-day">Tuesday</span><span class="schedule-time">15:00 – 21:00</span>
                         </li>
                         <li><span class="schedule-day">Wednesday</span><span class="schedule-time">15:00 – 21:00</span>
                         </li>
@@ -1277,7 +1525,7 @@
         <section id="contact">
             <div class="wrap">
                 <div class="section-head">
-                    <span class="section-index">04</span>
+                    <span class="section-index">05</span>
                     <h2>Follow our Socials!</h2>
                 </div>
                 <div class="contact-row">
@@ -1421,6 +1669,89 @@
         }
 
         initStepCarousel('stockCarouselTrack', 2600);
+
+        // Shop preview: shows 3 items at a time and rotates through the store's products.
+        // Uses live products if the store allows it; otherwise rotates the category tiles.
+        (async function initShopPreview() {
+            const grid = document.getElementById('shopProducts');
+            if (!grid) return;
+            const SHOP = 'https://shop.taverngames.sg';
+
+            let items = [
+                { title: 'Pokémon', img: 'images/pokemon-30th.jpg', href: SHOP + '/collections/pokemon-sealed' },
+                { title: 'Magic: The Gathering', img: 'images/mtg.jpg', href: SHOP + '/collections/magic-the-gathering-sealed' },
+                { title: 'One Piece', img: 'images/one_piece.jpg', href: SHOP + '/collections/one-piece-sealed' },
+                { title: 'Riftbound', img: 'images/Riftbound.jpg', href: SHOP + '/collections/riftbound-sealed' },
+                { title: 'Disney Lorcana', img: 'images/lorcana.jpg', href: SHOP + '/collections/lorcana' },
+                { title: 'Accessories', img: 'images/tcg-accessories-957775.jpg', href: SHOP + '/collections/accessories' }
+            ];
+            let live = false;
+
+            try {
+                const res = await fetch(SHOP + '/products.json?limit=60');
+                if (res.ok) {
+                    const { products } = await res.json();
+                    const fetched = (products || [])
+                        .filter(p => p.images && p.images.length)
+                        .map(p => {
+                            const v = p.variants && p.variants[0];
+                            return {
+                                title: p.title,
+                                img: p.images[0].src,
+                                href: SHOP + '/products/' + p.handle,
+                                price: v && v.price ? '$' + Number(v.price).toFixed(2) : ''
+                            };
+                        });
+                    if (fetched.length) { items = fetched; live = true; }
+                }
+            } catch (e) { /* CORS or network error: fall back to category tiles */ }
+
+            const PER_PAGE = 3;
+            let start = 0;
+
+            function render() {
+                grid.innerHTML = '';
+                for (let i = 0; i < PER_PAGE && i < items.length; i++) {
+                    const item = items[(start + i) % items.length];
+                    const a = document.createElement('a');
+                    a.className = 'shop-tile';
+                    a.href = item.href;
+                    a.target = '_blank';
+                    a.rel = 'noopener';
+                    const img = document.createElement('img');
+                    img.src = item.img;
+                    img.alt = '';
+                    const title = document.createElement('span');
+                    title.textContent = item.title;
+                    a.append(img, title);
+                    if (item.price) {
+                        const s = document.createElement('span');
+                        s.className = 'shop-price';
+                        s.textContent = item.price;
+                        a.appendChild(s);
+                    }
+                    grid.appendChild(a);
+                }
+                grid.classList.toggle('live', live);
+            }
+
+            function rotate() {
+                grid.classList.add('fading');
+                setTimeout(() => {
+                    start = (start + PER_PAGE) % items.length;
+                    render();
+                    grid.classList.remove('fading');
+                }, 400);
+            }
+
+            render();
+            if (items.length <= PER_PAGE) return;
+
+            let timer = setInterval(rotate, 4000);
+            const box = grid.closest('.shop-preview');
+            box.addEventListener('mouseenter', () => clearInterval(timer));
+            box.addEventListener('mouseleave', () => { clearInterval(timer); timer = setInterval(rotate, 4000); });
+        })();
     </script>
 </body>
 
