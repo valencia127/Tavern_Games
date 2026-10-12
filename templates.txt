@@ -1,0 +1,27 @@
+<div class="event-feature">
+                    <div class="event-feature-copy">
+                        <span class="event-kicker">Showcase Event of the Week</span>
+                        <h3>Radiance Pre Rift</h3>
+                        <div class="event-meta">
+                            <span>Saturday, 17th October</span>
+                            <span> </span>
+                            <span> 3:00–6:00pm</span>
+                            <span> Entry Fee: $12 </span>
+                            <span> </span>
+                            <span> 3 Wins: 1 Origins, 1 Spiritforged & 1 Vendetta Booster Pack</span>
+                            <span> </span>
+                            <span> 2 Wins: 1 Spiritforged & 1 Vendetta Booster Pack</span>
+                            <span> </span>
+                            <span> 1/0 Wins: 1 Vendetta Booster Pack</span>
+                            <span> </span>
+                            <span> Stand a chance to win double your prize packs if you defeat the store's reigning
+                                Nexus
+                                Knight 👀</span>
+                        </div>
+                        <div class="event-actions">
+                            <a class="event-button"
+                                href="https://playriftbound.com/en-US/events/117173137472973885">Register!</a>
+                        </div>
+                    </div>
+                    <img src="images/nexus_knight.jpg" alt="Weekly event schedule poster at Tavern Games TCG" />
+                </div>
