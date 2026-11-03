@@ -541,6 +541,252 @@
             background: var(--holo-teal);
         }
 
+
+        /* Special event albums: a wide scene, a portrait, and two detail shots. */
+        #special-events {
+            scroll-margin-top: 100px;
+        }
+
+        .special-intro {
+            max-width: 580px;
+            color: var(--parchment-dim);
+            margin: -4px 0 28px;
+        }
+
+        .event-album {
+            padding: clamp(18px, 3vw, 32px);
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            background: radial-gradient(ellipse at top right, rgba(246, 118, 40, .13), transparent 60%), var(--ink-soft);
+        }
+
+        .album-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            margin-bottom: 26px;
+        }
+
+        .album-eyebrow {
+            color: var(--holo-teal);
+            font: .7rem 'IBM Plex Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+        }
+
+        .album-heading h3 {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            line-height: 1.15;
+            margin: 10px 0;
+        }
+
+        .album-heading p {
+            max-width: 440px;
+            color: var(--parchment-dim);
+            font-size: .92rem;
+        }
+
+        .album-stamp {
+            flex-shrink: 0;
+            padding: 16px 22px;
+            border: 1px dashed rgba(255, 179, 122, .5);
+            border-radius: 12px;
+            color: var(--holo-teal);
+            text-align: center;
+            transform: rotate(3deg);
+            font: .75rem 'IBM Plex Mono', monospace;
+        }
+
+        .album-stamp strong {
+            display: block;
+            color: var(--parchment);
+            font-size: 1.8rem;
+            line-height: 1.3;
+        }
+
+        .event-collage {
+            display: grid;
+            grid-template-columns: repeat(12, minmax(0, 1fr));
+            grid-auto-rows: 205px;
+            gap: 12px;
+        }
+
+        .album-photo {
+            position: relative;
+            display: block;
+            grid-column: span 3;
+            min-width: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            background: var(--ink);
+            color: #fff;
+            text-decoration: none;
+            isolation: isolate;
+        }
+
+        .album-photo:first-child {
+            grid-column: span 6;
+            grid-row: span 2;
+        }
+
+        .album-photo:nth-child(2) {
+            grid-row: span 2;
+        }
+
+        .album-photo img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .35s ease;
+        }
+
+        .album-photo:hover img {
+            transform: scale(1.04);
+        }
+
+        .album-photo::after {
+            content: '';
+            position: absolute;
+            inset: 35% 0 0;
+            z-index: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, .75));
+            pointer-events: none;
+        }
+
+        .album-photo span {
+            position: absolute;
+            bottom: 16px;
+            left: 16px;
+            right: 16px;
+            z-index: 1;
+            font-size: .85rem;
+            font-weight: 500;
+        }
+
+        .album-photo span::after {
+            content: '↗';
+            float: right;
+            margin-left: 8px;
+        }
+
+        .album-footer {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding-top: 18px;
+            color: var(--parchment-dim);
+            font: .7rem 'IBM Plex Mono', monospace;
+        }
+
+        .album-mobile-hint {
+            display: none;
+        }
+
+        .photo-viewer {
+            margin: auto;
+            width: min(1100px, 94vw);
+            max-height: 94dvh;
+            padding: 16px;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: var(--ink);
+            color: var(--parchment);
+        }
+
+        .photo-viewer::backdrop {
+            background: rgba(0, 0, 0, .88);
+        }
+
+        .photo-viewer-top,
+        .photo-viewer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .photo-viewer-top {
+            margin-bottom: 12px;
+        }
+
+        .photo-viewer-bottom {
+            margin-top: 12px;
+        }
+
+        .photo-viewer button {
+            min-height: 44px;
+            min-width: 44px;
+            padding: 8px 14px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: var(--ink-soft);
+            color: var(--parchment);
+            cursor: pointer;
+            font: inherit;
+        }
+
+        .photo-viewer img {
+            display: block;
+            width: 100%;
+            height: min(70dvh, 720px);
+            object-fit: contain;
+        }
+
+        .photo-viewer-caption {
+            text-align: center;
+            font-size: .9rem;
+        }
+
+        .photo-viewer-count {
+            display: block;
+            font: .7rem 'IBM Plex Mono', monospace;
+            color: var(--parchment-dim);
+            margin-top: 4px;
+        }
+
+        @media (max-width: 760px) {
+            .album-heading {
+                align-items: flex-start;
+                gap: 14px;
+            }
+
+            .album-stamp {
+                padding: 10px;
+                font-size: .6rem;
+            }
+
+            .album-stamp strong {
+                font-size: 1.4rem;
+            }
+
+            .event-collage {
+                display: flex;
+                overflow-x: auto;
+                gap: 12px;
+                scroll-snap-type: x mandatory;
+                scrollbar-width: thin;
+                scrollbar-color: var(--foil-gold) transparent;
+                padding-bottom: 12px;
+            }
+
+            .event-collage .album-photo {
+                flex: 0 0 85%;
+                height: 340px;
+                scroll-snap-align: start;
+            }
+
+            .album-photo:first-child img {
+                object-position: 42% center;
+            }
+
+            .album-mobile-hint {
+                display: inline;
+            }
+        }
+
         /* Find us */
         .find-grid {
             display: grid;
@@ -1208,9 +1454,9 @@
                 <li class="sidebar-logo"><img src="images/tavern-banner-logo.jpg" alt="Tavern Games Trading Card Store">
                 </li>
                 <li><a href='https://shop.taverngames.sg'>Shop our Products</a></li>
-                <li><a href="#stock">What We Sell</a></li>
                 <li><a href="#find">Find Us</a></li>
                 <li><a href="#events">Events</a></li>
+                <li><a href="#special-events">Special Events</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
@@ -1390,7 +1636,7 @@
                         <span class="event-kicker">Showcase Event of the Week</span>
                         <h3>Nexus Afternoon</h3>
                         <div class="event-meta">
-                            <span>Saturday, 31st October</span>
+                            <span>Saturday, 7th November</span>
                             <span> </span>
                             <span> 3:00–6:00pm</span>
                             <span> Entry Fee: $12 </span>
@@ -1408,7 +1654,7 @@
                         </div>
                         <div class="event-actions">
                             <a class="event-button"
-                                href="https://playriftbound.com/events/117507322293008832">Register!</a>
+                                href="https://playriftbound.com/events/117549831683241215">Register!</a>
                         </div>
                     </div>
                     <img src="images/nexus_knight.jpg" alt="Weekly event schedule poster at Tavern Games TCG" />
@@ -1419,58 +1665,97 @@
                     <article class="event-card" style="--card-bg: url('images/riftbound_nexus.png')"><span
                             class="event-tag">Riftbound</span>
                         <h4>Nexus Night</h4>
-                        <p>Wednesday, 28th October · 7:30pm</p>
-                        <a class="event-button" href="https://playriftbound.com/events/117507302237440545">Register</a>
+                        <p>Wednesday, 4th November · 7:30pm</p>
+                        <a class="event-button" href="https://playriftbound.com/events/117549827358891598">Register</a>
                     </article>
-
-                    <article class="event-card" style="--card-bg: url('images/mtg.jpg')"><span
-                            class="event-tag">MTG</span>
-                        <h4>Casual Commander</h4>
-                        <p>Wednesday, 28th October · 3pm onwards</p>
-                        <a class="event-button secondary" href="https://t.me/+FCgdAub8pIYyYTY9">Join Telegram group to
-                            Sign
-                            Up!</a>
-                    </article>
-
 
                     <article class="event-card" style="--card-bg: url('images/riftbound_nexus.png')"><span
                             class="event-tag">Riftbound</span>
                         <h4>Nexus Night</h4>
-                        <p>Friday, 23rd October · 7:30pm</p>
+                        <p>Friday, 6th November · 7:30pm</p>
                         <p></p><a class="event-button"
-                            href="https://playriftbound.com/events/117507306497369393">Register</a>
+                            href="https://playriftbound.com/events/117549829197513316">Register</a>
                     </article>
-                    <article class="event-card" style="--card-bg: url('images/Halloween.png')"><span
-                            class="event-tag">MTG/Riftbound</span>
-                        <h4>Halloween Party @ Tavern</h4>
-                        <p>Saturday, 31st October · 6:00pm onwards</p>
-                        <a class="event-button secondary" href="https://t.me/+FCgdAub8pIYyYTY9">Join Telegram group to
-                            Sign
-                            Up!</a>
-                    </article>
-                    <article class="event-card" style="--card-bg: url('images/mtg.jpg')"><span
-                            class="event-tag">MTG</span>
-                        <h4>Casual Commander</h4>
-                        <p>Sunday, 1st November · 2:00pm–8:00pm</p>
-                        <a class="event-button secondary" href="https://t.me/+FCgdAub8pIYyYTY9">Join Telegram group to
-                            Sign
-                            Up!</a>
-                    </article>
+
                     <article class="event-card" style="--card-bg: url('images/Lorcana_Pack_Rush.png')"><span
                             class="event-tag">Lorcana</span>
                         <h4>Pack Rush</h4>
-                        <p>Sunday, 1st November · 3:00pm</p>
+                        <p>Saturday, 7th November · 3:00pm</p>
                         <a class="event-button secondary"
-                            href="https://tcg.ravensburgerplay.com/events/1230934">Register</a>
+                            href="https://tcg.ravensburgerplay.com/events/1241758">Register</a>
+                    </article>
+
+                    <article class="event-card" style="--card-bg: url('images/mtg.jpg')"><span
+                            class="event-tag">MTG</span>
+                        <h4>Casual Commander</h4>
+                        <p>Sunday, 8th November · 2:00pm–8:00pm</p>
+                        <a class="event-button secondary" href="https://t.me/+FCgdAub8pIYyYTY9">Join Telegram group to
+                            Sign
+                            Up!</a>
                     </article>
                 </div>
+            </div>
+        </section>
+
+        <section id="special-events" aria-labelledby="special-events-title">
+            <div class="wrap">
+                <div class="section-head">
+                    <span class="section-index">03</span>
+                    <h2 id="special-events-title">Special Events</h2>
+                </div>
+                <p class="special-intro">Big nights, familiar faces, and moments worth keeping.
+                </p>
+                <!-- Duplicate this event-album article for another event. Replace the title, date,
+                     image paths, alt text and captions. Photo links open the full-size viewer. -->
+                <article class="event-album" aria-labelledby="halloween-album-title">
+                    <div class="album-heading">
+                        <div>
+                            <span class="album-eyebrow">The Tavern scrapbook / Halloween</span>
+                            <h3 id="halloween-album-title">A little spooky.<br>A lot of good company.</h3>
+                            <p>🎃 Halloween at the Tavern. Costumes, Cards, and an unforgettable night...</p>
+                        </div>
+                        <time class="album-stamp" datetime="2026-10-31">OCT<strong>31</strong>2026</time>
+                    </div>
+                    <div class="event-collage" role="group" aria-label="Halloween photo gallery">
+                        <a class="album-photo" href="Halloween_Event/Night_Play.jpg"
+                            aria-label="View full photo: Halloween at the Tavern">
+                            <img src="Halloween_Event/Night_Play.jpg"
+                                alt="Players gathered under warm lights and Halloween decorations at the Tavern"
+                                loading="lazy" decoding="async">
+                            <span>One night at the Tavern 🎃🌕</span>
+                        </a>
+                        <a class="album-photo" href="Halloween_Event/dress_1.jpg"
+                            aria-label="View full photo: Dressed for the occasion">
+                            <img src="Halloween_Event/dress_1.jpg" alt="Two guests in Roman-inspired Halloween costumes"
+                                loading="lazy" decoding="async">
+                            <span>Dressed for the occasion 💃</span>
+                        </a>
+                        <a class="album-photo" href="Halloween_Event/beer_pong.jpg"
+                            aria-label="View full photo: A friendly side quest">
+                            <img src="Halloween_Event/beer_pong.jpg"
+                                alt="Guests playing a cup pong game at the Halloween party" loading="lazy"
+                                decoding="async">
+                            <span>🍺🏓</span>
+                        </a>
+                        <a class="album-photo" href="Halloween_Event/night_games.jpg"
+                            aria-label="View full photo: Just one more game">
+                            <img src="Halloween_Event/night_games.jpg"
+                                alt="Players enjoying a card game by candlelight during Halloween" loading="lazy"
+                                decoding="async">
+                            <span>Late Night Magic ✨<span>
+                        </a>
+                    </div>
+                    <div class="album-footer"><span>HALLOWEEN @ TAVERN · 31 OCT 2026</span><span><span
+                                class="album-mobile-hint">Swipe to explore · </span>Tap a photo to take a closer look
+                            ↗</span></div>
+                </article>
             </div>
         </section>
 
         <section id="shop">
             <div class="wrap">
                 <div class="section-head">
-                    <span class="section-index">03</span>
+                    <span class="section-index">04</span>
                     <h2>Shop online</h2>
                 </div>
                 <div class="shop-preview">
@@ -1505,7 +1790,7 @@
         <section id="find">
             <div class="wrap">
                 <div class="section-head">
-                    <span class="section-index">04</span>
+                    <span class="section-index">05</span>
                     <h2>Find us</h2>
                 </div>
                 <div class="find-grid">
@@ -1543,7 +1828,7 @@
         <section id="contact">
             <div class="wrap">
                 <div class="section-head">
-                    <span class="section-index">05</span>
+                    <span class="section-index">06</span>
                     <h2>Follow our Socials!</h2>
                 </div>
                 <div class="contact-row">
@@ -1555,6 +1840,18 @@
             </div>
         </section>
     </main>
+
+    <dialog class="photo-viewer" id="eventPhotoViewer" aria-label="Special event photo viewer">
+        <div class="photo-viewer-top"><span>Special Events / Photo album</span><button type="button" data-photo-close
+                aria-label="Close photo viewer">✕</button></div>
+        <img id="eventPhotoImage" alt="">
+        <div class="photo-viewer-bottom">
+            <button type="button" data-photo-prev aria-label="Previous photo">←</button>
+            <div class="photo-viewer-caption"><span id="eventPhotoCaption"></span><span class="photo-viewer-count"
+                    id="eventPhotoCount" aria-live="polite"></span></div>
+            <button type="button" data-photo-next aria-label="Next photo">→</button>
+        </div>
+    </dialog>
 
     <footer class="wrap">
         <span>© 2026 Tavern Games TCG</span>
@@ -1769,6 +2066,46 @@
             const box = grid.closest('.shop-preview');
             box.addEventListener('mouseenter', () => clearInterval(timer));
             box.addEventListener('mouseleave', () => { clearInterval(timer); timer = setInterval(rotate, 4000); });
+        })();
+
+        // Each album supplies its own images and captions; no separate photo list to maintain.
+        (() => {
+            const viewer = document.getElementById('eventPhotoViewer');
+            if (!viewer || typeof viewer.showModal !== 'function') return;
+            const image = document.getElementById('eventPhotoImage');
+            let photos = [], index = 0, trigger, previousOverflow;
+            function showPhoto(next) {
+                index = (next + photos.length) % photos.length;
+                const photo = photos[index];
+                image.src = photo.href;
+                image.alt = photo.querySelector('img').alt;
+                document.getElementById('eventPhotoCaption').textContent = photo.querySelector('span').textContent;
+                document.getElementById('eventPhotoCount').textContent = `${index + 1} / ${photos.length}`;
+            }
+            document.querySelectorAll('.album-photo').forEach(photo => photo.addEventListener('click', event => {
+                if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+                event.preventDefault();
+                photos = [...photo.closest('.event-collage').querySelectorAll('.album-photo')];
+                trigger = photo;
+                showPhoto(photos.indexOf(photo));
+                previousOverflow = document.body.style.overflow;
+                viewer.showModal();
+                document.body.style.overflow = 'hidden';
+            }));
+            viewer.querySelector('[data-photo-close]').addEventListener('click', () => viewer.close());
+            viewer.querySelector('[data-photo-prev]').addEventListener('click', () => showPhoto(index - 1));
+            viewer.querySelector('[data-photo-next]').addEventListener('click', () => showPhoto(index + 1));
+            viewer.addEventListener('keydown', event => {
+                if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+                    event.preventDefault();
+                    showPhoto(index + (event.key === 'ArrowRight' ? 1 : -1));
+                }
+            });
+            viewer.addEventListener('click', event => { if (event.target === viewer) viewer.close(); });
+            viewer.addEventListener('close', () => {
+                document.body.style.overflow = previousOverflow;
+                trigger?.focus({ preventScroll: true });
+            });
         })();
     </script>
 </body>
